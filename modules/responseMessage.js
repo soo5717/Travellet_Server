@@ -25,3 +25,4 @@ module.exports = {
     PROFILE_DELETE_SUCCESS: '회원 탈퇴 성공',
     PROFILE_DELETE_FAIL: '회원 탈퇴 실패'
 };
+
