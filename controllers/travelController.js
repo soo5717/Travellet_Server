@@ -11,6 +11,7 @@ module.exports = {
         }
 
         try {
+            console.log(req.decoded);
             await travelService.createTravel(req.decoded, title, startDate, endDate, budget);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.TRAVEL_CREATE_SUCCESS));
                         
