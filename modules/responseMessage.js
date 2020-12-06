@@ -21,5 +21,5 @@ module.exports = {
     PROFILE_READ_SUCCESS: '프로필 조회 성공',
     PROFILE_READ_FAIL: '프로필 조회 실패',
 
-    //지선
+    //지선지선
 };
