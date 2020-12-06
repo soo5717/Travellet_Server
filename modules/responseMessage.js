@@ -23,6 +23,9 @@ module.exports = {
     PROFILE_UPDATE_SUCCESS: '프로필 수정 성공',
     PROFILE_UPDATE_FAIL: '프로필 수정 실패',
     PROFILE_DELETE_SUCCESS: '회원 탈퇴 성공',
-    PROFILE_DELETE_FAIL: '회원 탈퇴 실패'
-};
+    PROFILE_DELETE_FAIL: '회원 탈퇴 실패',
 
+    //여행 생성
+    TRAVEL_CREATE_SUCCESS: '여행 생성 성공',
+    TRAVEL_CREATE_FAIL: '여행 생성 실패'
+};
