@@ -8,5 +8,6 @@ router.get('/', function(req, res) {
 
 // Router 추가
 router.use('/users', require('./users'));
+router.use('/travels', require('./travels'));
 
 module.exports = router;

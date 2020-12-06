@@ -21,5 +21,7 @@ module.exports = {
     PROFILE_READ_SUCCESS: '프로필 조회 성공',
     PROFILE_READ_FAIL: '프로필 조회 실패',
 
-    //지선지선
+    //여행 생성
+    TRAVEL_CREATE_SUCCESS: '여행 생성 성공',
+    TRAVEL_CREATE_FAIL: '여행 생성 실패'
 };
