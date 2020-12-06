@@ -4,7 +4,7 @@ module.exports = {
     createTravel: async (userId, title, startDate, endDate, budget) => {
         try {
             await Travel.create({
-                userId: userId,
+                user_id: userId,
                 title: title,
                 startDate: startDate,
                 endDate: endDate,
