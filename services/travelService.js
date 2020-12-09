@@ -30,11 +30,10 @@ module.exports = {
 
     readTravel: async (userId) => {
         try {
-            const result = await Travel.findOne({
+            const result = await Travel.findAndCountAll({
                 where: {
                     user_id: userId
-                },
-                attributes: ['title', 'startDate', 'endDate', 'budget']
+                }
             });
             return result;
         } catch(e) {
