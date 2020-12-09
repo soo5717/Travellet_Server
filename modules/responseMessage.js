@@ -27,5 +27,22 @@ module.exports = {
 
     //여행 생성
     TRAVEL_CREATE_SUCCESS: '여행 생성 성공',
-    TRAVEL_CREATE_FAIL: '여행 생성 실패'
+    TRAVEL_CREATE_FAIL: '여행 생성 실패',
+
+    //여행 삭제
+    TRAVEL_DELETE_SUCCESS: '여행 삭제 성공',
+    TRAVEL_DELETE_FAIL: '여행 삭제 실패',
+
+    //여행 목룍 불러오기
+    TRAVEL_GET_SUCCESS: '여행 목록 불러오기 성공',
+    TRAVEL_GET_FAIL: '여행 목록 불러오기 실패',
+
+    //장소 좋아요 추가
+    PLACE_LIKE_CREATE_SUCCESS: '장소 좋아요 추가 성공',
+    PLACE_LIKE_CREATE_FAIL: '장소 좋아요 추가 실패',
+
+    //장소 좋아요 삭제
+    PLACE_LIKE_DELETE_SUCCESS: '장소 좋아요 삭제 성공',
+    PLACE_LIKE_DELETE_FAIL: '장소 좋아요 삭제 실패'
+
 };
