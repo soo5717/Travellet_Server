@@ -5,7 +5,7 @@ module.exports = {
         try {
             await Like.create({
                 user_id: userId,
-                contentId: contentId,
+                contentId: contentId
             });
         } catch (error) {
             throw error;
@@ -14,9 +14,11 @@ module.exports = {
 
     deletePlaceLike: async (userId, contentId) => {
         try {
-            await Like.delete({
-                user_id: userId,
-                contentId: contentId,
+            await Like.destroy({
+                where: {                    
+                    user_id: userId,
+                    contentId: contentId
+                }
             });
         } catch (error) {
             throw error;
