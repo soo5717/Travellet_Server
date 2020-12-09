@@ -28,11 +28,11 @@ module.exports = {
         }
     },
 
-    readProfile: async (id) => {
+    readTravel: async (userId) => {
         try {
             const result = await User.findOne({
                 where: {
-                    id: id
+                    user_id: userId
                 },
                 attributes: ['title', 'startDate', 'endDate', 'budget']
             });
