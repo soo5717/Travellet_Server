@@ -20,6 +20,8 @@ module.exports = {
     //프로필
     PROFILE_READ_SUCCESS: '프로필 조회 성공',
     PROFILE_READ_FAIL: '프로필 조회 실패',
-    PROFIME_UPDATE_SUCCESS: '프로필 수정 성공',
-    PROFIME_UPDATE_FAIL: '프로필 수정 실패'
+    PROFILE_UPDATE_SUCCESS: '프로필 수정 성공',
+    PROFILE_UPDATE_FAIL: '프로필 수정 실패',
+    PROFILE_DELETE_SUCCESS: '회원 탈퇴 성공',
+    PROFILE_DELETE_FAIL: '회원 탈퇴 실패'
 };
