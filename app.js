@@ -6,7 +6,7 @@ var logger = require('morgan');
 const { sequelize } = require('./models');
 
 // Sequelize 연결
-sequelize.sync({ alter: true })
+sequelize.sync({ alter: false, force: false })
 .then(() => {
   console.log('DataBase connection success!');
 })

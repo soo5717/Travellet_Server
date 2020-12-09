@@ -3,25 +3,24 @@ const { User } = require('../models')
 module.exports = { 
     signUp: async (email, pwd, name, country) => {
         try{
-            const user = await User.create({
+            await User.create({
                 email: email,
                 pwd: pwd,
                 name: name,
                 country: country
             });
-            return user;
         } catch(e) {
             throw e;
         }
     },
     signIn: async (email) => {
         try{
-            const user = await User.findOne({
+            const result = await User.findOne({
                 where: {
                     email: email
                 }
             });
-            return user;
+            return result;
         } catch(e) {
             throw e;
         }
@@ -33,6 +32,33 @@ module.exports = {
                     id: id
                 },
                 attributes: ['email', 'name', 'country']
+            });
+            return result;
+        } catch(e) {
+            throw e;
+        }
+    },
+    updateProfile: async (id, name, country) => {
+        try {
+            const result = await User.update({
+                name: name,
+                country: country},
+            {
+                where: {
+                    id: id
+                }
+            });
+            return result;
+        } catch(e) {
+            throw e;
+        }
+    },
+    deleteProfile: async (id) => {
+        try {
+            const result = await User.destroy({
+                where: {
+                    id: id
+                }
             });
             return result;
         } catch(e) {
