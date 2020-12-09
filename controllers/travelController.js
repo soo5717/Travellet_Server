@@ -36,6 +36,18 @@ module.exports = {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_DELETE_FAIL));
         }
+    },
+
+    getTravel: async (req, res) => {
+        try {
+            console.log(req.decoded);
+            await travelService.getTravel(req.decoded);
+            return res.status(sc.OK).send(rb.success(sc.OK, rm.TRAVEL_GET_SUCCESS));
+                        
+        } catch (error) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_GET_FAIL));
+        }
     }
 }
 

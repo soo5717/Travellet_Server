@@ -26,5 +26,17 @@ module.exports = {
         } catch (error) {
             throw error;
         }
+    },
+
+    getTravel: async (userId) => {
+        try {
+            await Travel.findOne({
+                where: {                    
+                    user_id: userId
+                }
+            });
+        } catch (error) {
+            throw error;
+        }
     }
 }

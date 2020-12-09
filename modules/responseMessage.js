@@ -39,6 +39,10 @@ module.exports = {
 
     //장소 좋아요 삭제
     PLACE_LIKE_DELETE_SUCCESS: '장소 좋아요 삭제 성공',
-    PLACE_LIKE_DELETE_FAIL: '장소 좋아요 삭제 실패'
+    PLACE_LIKE_DELETE_FAIL: '장소 좋아요 삭제 실패',
+
+    //장소 좋아요 목룍 불러오기
+    PLACE_LIKE_GET_SUCCESS: '장소 좋아요 목록 불러오기 성공',
+    PLACE_LIKE_GET_FAIL: '장소 좋아요 목록 불러오기 실패',
 
 };
