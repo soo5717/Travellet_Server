@@ -30,7 +30,7 @@ module.exports = {
 
     readTravel: async (userId) => {
         try {
-            const result = await User.findOne({
+            const result = await Travel.findOne({
                 where: {
                     user_id: userId
                 },
