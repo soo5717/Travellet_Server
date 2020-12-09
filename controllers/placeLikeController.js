@@ -36,6 +36,18 @@ module.exports = {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLACE_LIKE_DELETE_FAIL));
         }
+    },
+
+    readPlaceLike: async (req, res) => {
+        try {
+            console.log(req.decoded);
+            const result = await placeLikeService.readPlaceLike(req.decoded);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLACE_LIKE_GET_SUCCESS, result));
+                        
+        } catch (error) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLACE_LIKE_GET_FAIL));
+        }
     }
 }
 
