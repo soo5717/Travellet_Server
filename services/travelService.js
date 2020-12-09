@@ -20,7 +20,7 @@ module.exports = {
             await Travel.destroy({
                 where: {                    
                     user_id: userId,
-                    id: contentId
+                    id: travelId
                 }
             });
         } catch (error) {
