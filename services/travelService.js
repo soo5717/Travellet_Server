@@ -13,5 +13,18 @@ module.exports = {
         } catch (error) {
             throw error;
         }
+    },
+
+    deleteTravel: async (userId, travelId) => {
+        try {
+            await Travel.destroy({
+                where: {                    
+                    user_id: userId,
+                    id: contentId
+                }
+            });
+        } catch (error) {
+            throw error;
+        }
     }
 }
