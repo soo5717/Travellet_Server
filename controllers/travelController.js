@@ -38,11 +38,11 @@ module.exports = {
         }
     },
 
-    getTravel: async (req, res) => {
+    readTravel: async (req, res) => {
         try {
             console.log(req.decoded);
-            await travelService.getTravel(req.decoded);
-            return res.status(sc.OK).send(rb.success(sc.OK, rm.TRAVEL_GET_SUCCESS));
+            const result = await travelService.readTravel(req.decoded);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_GET_SUCCESS, result));
                         
         } catch (error) {
             console.error(error);
