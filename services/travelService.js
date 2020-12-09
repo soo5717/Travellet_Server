@@ -28,15 +28,17 @@ module.exports = {
         }
     },
 
-    getTravel: async (userId) => {
+    readProfile: async (id) => {
         try {
-            await Travel.findOne({
-                where: {                    
-                    user_id: userId
-                }
+            const result = await User.findOne({
+                where: {
+                    id: id
+                },
+                attributes: ['title', 'startDate', 'endDate', 'budget']
             });
-        } catch (error) {
-            throw error;
+            return result;
+        } catch(e) {
+            throw e;
         }
     }
 }

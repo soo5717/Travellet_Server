@@ -10,6 +10,6 @@ router.post('/', checkToken, travelController.createTravel);
 router.delete('/', checkToken, travelController.deleteTravel);
 
 // [GET] 여행 목록 불러오기
-router.get('/', checkToken, travelController.getTravel);
+router.get('/', checkToken, travelController.readTravel);
 
 module.exports = router;
