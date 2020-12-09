@@ -2,7 +2,6 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define('User', {
         email: {
             type: DataTypes.STRING(50),
-            unique: true,
             allowNull: false
         },
         pwd: {
@@ -20,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         tableName: 'users',
         underscored: true,
-        timestamps: false
+        timestamps: false,
+        indexes: [{unique: true, fields: ['email']}]
     });
 };

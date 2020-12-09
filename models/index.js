@@ -22,58 +22,53 @@ db.Expense = require('./expenseModel')(sequelize, Sequelize);
 db.Like = require('./likeModel')(sequelize, Sequelize);
 
 // 1: M 관계 User-Travel
-db.User.hasMany(db.Travel, {
-  onDelete: 'cascade'
-});
+db.User.hasMany(db.Travel);
 db.Travel.belongsTo(db.User, {
   foreignKey: {
     name: 'user_id',
     allowNull: false
-  }
+  },
+  onDelete: 'CASCADE'
 });
 
 // 1: M 관계 Travel-Plan
-db.Travel.hasMany(db.Plan, {
-  onDelete: 'cascade'
-});
+db.Travel.hasMany(db.Plan);
 db.Plan.belongsTo(db.Travel, {
   foreignKey: {
     name: 'travel_id',
     allowNull: false
-  }
+  },
+  onDelete: 'CASCADE'
 });
 
 // 1: M 관계 Plan-Budget
-db.Plan.hasMany(db.Budget, {
-  onDelete: 'cascade'
-});
+db.Plan.hasMany(db.Budget);
 db.Budget.belongsTo(db.Plan, {
   foreignKey: {
     name: 'plan_id',
     allowNull: false
-  }
+  },
+  onDelete: 'CASCADE'
 });
 
 // 1: M 관계 Plan-Expense
-db.Plan.hasMany(db.Expense, {
-  onDelete: 'cascade'
-});
+db.Plan.hasMany(db.Expense);
 db.Expense.belongsTo(db.Plan, {
   foreignKey: {
     name: 'plan_id',
     allowNull: false
-  }
+  },
+  onDelete: 'CASCADE'
 });
 
 // 1: M 관계 User-Like
-db.User.hasMany(db.Like, {
-  onDelete: 'cascade'
-});
+db.User.hasMany(db.Like);
 db.Like.belongsTo(db.User, {
   foreignKey: {
     name: 'user_id',
     allowNull: false
-  }
+  },
+  onDelete: 'CASCADE'
 });
 
 module.exports = db;
