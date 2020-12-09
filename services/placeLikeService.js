@@ -23,5 +23,18 @@ module.exports = {
         } catch (error) {
             throw error;
         }
+    },
+
+    readPlaceLike: async (userId) => {
+        try {
+            const result = await Like.findAndCountAll({
+                where: {
+                    user_id: userId
+                }
+            });
+            return result;
+        } catch(e) {
+            throw e;
+        }
     }
 }
