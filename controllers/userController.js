@@ -42,7 +42,6 @@ module.exports = {
     readProfile: async (req, res) => {
         try {
             const result = await userService.readProfile(req.decoded);
-            //상태 코드를 어떻게 해야할지 모르겠떠염 *>-<*
             if(!result){
                 return res.status(sc.NO_CONTENT).send();
             }
@@ -59,7 +58,6 @@ module.exports = {
         }
         try {
             const result = await userService.updateProfile(req.decoded, name, country);
-            //상태 코드를 어떻게 해야할지 모르겠떠염 *>-<*
             if(result[0] === 0){
                 return res.status(sc.NO_CONTENT).send();
             }
@@ -72,7 +70,6 @@ module.exports = {
     deleteProfile: async (req, res) => {
         try {
             const result = await userService.deleteProfile(req.decoded);
-            //상태 코드를 어떻게 해야할지 모르겠떠염 *>-<*
             if(result === 0){
                 return res.status(sc.NO_CONTENT).send();
             }
