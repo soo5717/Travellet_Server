@@ -1,5 +1,6 @@
 const { Like } = require('../models');
 
+//좋아요^^
 module.exports = {
     createPlaceLike: async (userId, contentId) => {
         try {
