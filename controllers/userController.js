@@ -51,6 +51,7 @@ module.exports = {
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PROFILE_READ_FAIL));
         }
     },
+    //너무 어렵다 ㅠㅠ
     updateProfile: async (req, res) => {
         const { name, country } = req.body;
         if(!name || !country) {
