@@ -21,7 +21,7 @@ db.Budget = require('./budgetModel')(sequelize, Sequelize);
 db.Expense = require('./expenseModel')(sequelize, Sequelize);
 db.Like = require('./likeModel')(sequelize, Sequelize);
 
-// 1: M 관계 User-Travel
+// 1: M 관계 User-Travel + cascade 옵션 추가
 db.User.hasMany(db.Travel);
 db.Travel.belongsTo(db.User, {
   foreignKey: {
