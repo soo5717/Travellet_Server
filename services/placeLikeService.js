@@ -1,7 +1,5 @@
 const { Like } = require('../models');
 
-//좋아요를 누르는 서비스입니다^^
-
 module.exports = {
     createPlaceLike: async (userId, contentId) => {
         try {
