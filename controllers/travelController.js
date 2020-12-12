@@ -21,6 +21,18 @@ module.exports = {
         }
     },
 
+    readTravel: async (req, res) => {
+        try {
+            console.log(req.decoded);
+            const result = await travelService.readTravel(req.decoded);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_READ_SUCCESS, result));
+                        
+        } catch (error) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_READ_FAIL));
+        }
+    },
+
     deleteTravel: async (req, res) => {
         const { travelId } = req.body;
         if(!travelId){
@@ -36,18 +48,7 @@ module.exports = {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_DELETE_FAIL));
         }
-    },
-
-    readTravel: async (req, res) => {
-        try {
-            console.log(req.decoded);
-            const result = await travelService.readTravel(req.decoded);
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_GET_SUCCESS, result));
-                        
-        } catch (error) {
-            console.error(error);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_GET_FAIL));
-        }
     }
+    
 }
 

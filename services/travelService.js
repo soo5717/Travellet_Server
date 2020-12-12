@@ -15,11 +15,10 @@ module.exports = {
         }
     },
 
-    deleteTravel: async (userId, travelId) => {
+    deleteTravel: async (travelId) => {
         try {
             await Travel.destroy({
-                where: {                    
-                    user_id: userId,
+                where: {              
                     id: travelId
                 }
             });
@@ -33,7 +32,7 @@ module.exports = {
             const result = await Travel.findAndCountAll({
                 where: {
                     user_id: userId
-                }
+                }, attribute
             });
             return result;
         } catch(e) {

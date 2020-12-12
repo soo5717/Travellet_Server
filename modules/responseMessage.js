@@ -34,8 +34,8 @@ module.exports = {
     TRAVEL_DELETE_FAIL: '여행 삭제 실패',
 
     //여행 목룍 불러오기
-    TRAVEL_GET_SUCCESS: '여행 목록 불러오기 성공',
-    TRAVEL_GET_FAIL: '여행 목록 불러오기 실패',
+    TRAVEL_READ_SUCCESS: '여행 목록 불러오기 성공',
+    TRAVEL_READ_FAIL: '여행 목록 불러오기 실패',
 
     //장소 좋아요 추가
     PLACE_LIKE_CREATE_SUCCESS: '장소 좋아요 추가 성공',
@@ -46,7 +46,7 @@ module.exports = {
     PLACE_LIKE_DELETE_FAIL: '장소 좋아요 삭제 실패',
 
     //장소 좋아요 목룍 불러오기
-    PLACE_LIKE_GET_SUCCESS: '장소 좋아요 목록 불러오기 성공',
-    PLACE_LIKE_GET_FAIL: '장소 좋아요 목록 불러오기 실패',
+    PLACE_LIKE_READ_SUCCESS: '장소 좋아요 목록 불러오기 성공',
+    PLACE_LIKE_READ_FAIL: '장소 좋아요 목록 불러오기 실패',
 
 };
