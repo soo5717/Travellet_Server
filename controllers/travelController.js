@@ -33,18 +33,6 @@ module.exports = {
         }
     },
 
-    readTravelId: async (req, res) => {
-        try {
-            console.log(req.decoded, req.params.travelid);
-            const result = await travelService.readTravelId(req.decoded, req.params.travelid);
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_READ_SUCCESS, result));
-        } catch(error) {
-            console.error(error);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_READ_FAIL));
-        }
-
-    },
-
     deleteTravel: async (req, res) => {
         const { travelId } = req.body;
         if(!travelId){

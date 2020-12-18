@@ -38,19 +38,6 @@ module.exports = {
         } catch(e) {
             throw e;
         }
-    },
-
-    readTravelId: async (userId, travelId) => {
-        try{
-            const result = await Travel.findOne({
-                where: {
-                    user_id: userId,
-                    id: travelId
-                }, attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
-            });
-            return result;
-        } catch(e) {
-            throw e;
-        }
     }
+
 }
