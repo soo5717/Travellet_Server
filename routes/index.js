@@ -10,6 +10,6 @@ router.get('/', function(req, res) {
 router.use('/users', require('./users'));
 router.use('/travels', require('./travels'));
 router.use('/likes', require('./placeLikes'));
-router.use('/plans', require('./plans'));
+router.use('travels/:travelid/plans', require('./plans')); //plan
 
 module.exports = router;
