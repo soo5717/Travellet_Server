@@ -1,7 +1,7 @@
 const { Plan } = require('../models');
 
 module.exports = {
-    createPlan: async (date, time, place, memo, category, transport, mapx, mapy, travelId) => {
+    createPlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
         try {
             await Plan.create({
                 date: date,
@@ -10,8 +10,8 @@ module.exports = {
                 memo: memo,
                 category: category,
                 transport: transport,
-                x: mapx,
-                y: mapy,                
+                x: x,
+                y: y,                
                 travel_id: travelId
             });            
         } catch (e) {
