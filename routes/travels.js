@@ -12,4 +12,7 @@ router.delete('/', checkToken, travelController.deleteTravel);
 // [GET] 여행 목록 불러오기
 router.get('/', checkToken, travelController.readTravel);
 
+// [GET] 여행 아이디 조회
+router.get('/:travelid', checkToken, travelController.readTravel);
+
 module.exports = router;
