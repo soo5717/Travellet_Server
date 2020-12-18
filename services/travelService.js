@@ -1,4 +1,3 @@
-const { and } = require('sequelize/types');
 const { Travel } = require('../models');
 
 module.exports = {
