@@ -35,8 +35,8 @@ module.exports = {
 
     readTravelId: async (req, res) => {
         try {
-            console.log(req.decoded, req.params.id);
-            const result = await travelService.readTravelId(req.decoded, req.params.id);
+            console.log(req.decoded, req.params.travelid);
+            const result = await travelService.readTravelId(req.decoded, req.params.travelid);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_READ_SUCCESS, result));
         } catch(error) {
             console.error(error);
