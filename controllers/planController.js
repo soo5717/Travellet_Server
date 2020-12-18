@@ -5,15 +5,15 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createPlan: async (req, res) => {
-        const { date, time, place, memo, category, transport, mapx, mapy, travel_id } = req.body;
+        const { date, time, place, memo, category, transport, x, y } = req.body;
         
-        if(!date || !time || !place || !memo || !category || !transport || !mapx || !mapy || !travel_id){
+        if(!date || !time || !place || !memo || !category || !transport || !x || !y ){
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
 
         try {
             console.log(req.params.travelid);
-            await planService.createPlan(req.params.travelid, date, time, place, memo, category, transport, mapx, mapy);
+            await planService.createPlan(req.params.travelid, date, time, place, memo, category, transport, x, y);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.PLAN_CREATE_SUCCESS));
                         
         } catch (error) {
