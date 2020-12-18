@@ -46,7 +46,8 @@ module.exports = {
                 where: {
                     user_id: userId,
                     id: travelId
-                }, attributes: ['user_id', 'id', 'title', 'startDate', 'endDate', 'budget']
+                }
+                // attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
             });
             return result;
         } catch(e) {
