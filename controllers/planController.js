@@ -7,9 +7,8 @@ module.exports = {
     createPlan: async (req, res) => {
         const { date, time, place, memo, category, transport, x, y, travelId } = req.body;
         
-        if(!date || !time || !place || !memo || !category || !transport || !x || !y || travelId){
-            console.log(travelId);
-            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+        if(!date || !time || !place || !memo || !category || !transport || !x || !y || !travelId){
+           return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
 
         try {
