@@ -14,7 +14,7 @@ module.exports = {
                 y: mapy,                
                 travel_id: travelId
             });            
-        } catch (error) {
+        } catch (e) {
             throw e;
         }
     }
