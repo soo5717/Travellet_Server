@@ -32,7 +32,9 @@ module.exports = {
             const result = await Travel.findAndCountAll({
                 where: {
                     user_id: userId
-                }, attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
+                }
+                
+                //attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
             });
             return result;
         } catch(e) {
