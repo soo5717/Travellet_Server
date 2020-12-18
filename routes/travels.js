@@ -13,6 +13,6 @@ router.delete('/', checkToken, travelController.deleteTravel);
 router.get('/', checkToken, travelController.readTravel);
 
 // [GET] 여행 아이디 조회
-router.get('/:travelid', checkToken, travelController.readTravel);
+router.get('/:travelid', checkToken, travelController.readTravelId);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const { and } = require('sequelize/types');
 const { Travel } = require('../models');
 
 module.exports = {
@@ -32,9 +33,7 @@ module.exports = {
             const result = await Travel.findAndCountAll({
                 where: {
                     user_id: userId
-                }
-                
-                //attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
+                }, attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
             });
             return result;
         } catch(e) {
@@ -48,8 +47,7 @@ module.exports = {
                 where: {
                     user_id: userId,
                     id: travelId
-                }
-                // attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
+                }, attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
             });
             return result;
         } catch(e) {
