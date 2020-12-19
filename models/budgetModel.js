@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull: false
         },
+        priceKrw: {
+            type: DataTypes.DOUBLE,
+            allowNull: false
+        },
         memo: {
             type: DataTypes.STRING(100),
             allowNull: false
