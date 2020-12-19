@@ -31,7 +31,8 @@ module.exports = {
             const result = await Like.findAndCountAll({
                 where: {
                     user_id: userId
-                }
+                },
+                attributes: ['contentId']
             });
             return result;
         } catch(e) {
