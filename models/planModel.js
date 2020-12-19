@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         time: {
-            type: DataTypes.DATE(6),
+            type: DataTypes.TIME,
             allowNull: false
         },
         place: {
