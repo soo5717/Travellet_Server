@@ -25,12 +25,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         x: {
-            type: DataTypes.DOUBLE,
-            allowNull: false
+            type: DataTypes.DOUBLE
         },
         y: {
-            type: DataTypes.DOUBLE,
-            allowNull: false
+            type: DataTypes.DOUBLE
         }
     }, {
         tableName: 'plans',
