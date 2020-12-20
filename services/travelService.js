@@ -1,4 +1,4 @@
-const { Travel } = require('../models');
+const { Travel, sequelize } = require('../models');
 
 module.exports = {
     createTravel: async (userId, title, startDate, endDate, budget) => {
@@ -10,32 +10,63 @@ module.exports = {
                 endDate: endDate,
                 budget: budget
             });
-        } catch (error) {
-            throw error;
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
     },
-
-    deleteTravel: async (travelId) => {
-        try {
-            await Travel.destroy({
-                where: {              
-                    id: travelId
-                }
-            });
-        } catch (error) {
-            throw error;
-        }
-    },
-
     readTravel: async (userId) => {
         try {
-            const result = await Travel.findAndCountAll({
+            const result = await Travel.findAll({
                 where: {
                     user_id: userId
-                }, attributes: ['user_id', 'title', 'startDate', 'endDate', 'budget']
+                }, 
+                attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
             });
             return result;
-        } catch(e) {
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    deleteTravel: async (id) => {
+        try {
+            const result = await Travel.destroy({
+                where: {              
+                    id: id
+                }
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    updateSumBudget: async (id, priceKrw, operator) => {
+        try {
+            await Travel.update({
+                sumBudget: sequelize.literal(`sum_budget${operator}${priceKrw}`)},
+            {
+                where: {
+                    id: id
+                }
+            });
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    updateSumExpense: async (id, priceKrw, operator) => {
+        try {
+            await Travel.update({
+                sumExpense: sequelize.literal(`sum_expense${operator}${priceKrw}`)},
+            {
+                where: {
+                    id: id
+                }
+            });
+        } catch (e) {
+            console.error(e);
             throw e;
         }
     }

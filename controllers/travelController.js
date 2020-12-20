@@ -9,46 +9,37 @@ module.exports = {
         if(!title || !startDate || !endDate || !budget){
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
-
         try {
-            console.log(req.decoded);
             await travelService.createTravel(req.decoded, title, startDate, endDate, budget);
-            return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.TRAVEL_CREATE_SUCCESS));
-                        
-        } catch (error) {
-            console.error(error);
+            return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.TRAVEL_CREATE_SUCCESS));         
+        } catch (e) {
+            console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_CREATE_FAIL));
         }
     },
-
     readTravel: async (req, res) => {
         try {
-            console.log(req.decoded);
             const result = await travelService.readTravel(req.decoded);
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_READ_SUCCESS, result));
-                        
-        } catch (error) {
-            console.error(error);
+            if(Array.isArray(result) && !result.length){
+                return res.status(sc.NO_CONTENT).send();
+            }
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_READ_SUCCESS, result));          
+        } catch (e) {
+            console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_READ_FAIL));
         }
     },
-
     deleteTravel: async (req, res) => {
-        const { travelId } = req.body;
-        if(!travelId){
-            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));            
-        }
-
         try {
-            console.log(req.decoded);
-            await travelService.deleteTravel(req.decoded, travelId);
-            return res.status(sc.NO_CONTENT).send(rb.success(sc.NO_CONTENT, rm.TRAVEL_DELETE_SUCCESS));
-                        
-        } catch (error) {
+            const result = await travelService.deleteTravel(req.params.id);
+            if(!result){
+                return res.status(sc.NO_CONTENT).send();
+            }
+            return res.status(sc.OK).send(rb.success(sc.OK, rm.TRAVEL_DELETE_SUCCESS));              
+        } catch (e) {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_DELETE_FAIL));
         }
     }
-    
 }
 
