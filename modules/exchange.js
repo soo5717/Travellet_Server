@@ -8,7 +8,7 @@ module.exports = { //환율 변환 모듈 (대상 통화 금액, 대상 통화 �
         };
         try {
             if(base === to) //변환하려는 통화가 같을 경우
-                return price;
+                return (price).toFixed(2);
 
             //JSON 파싱
             const result = await request(options);
