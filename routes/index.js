@@ -9,7 +9,9 @@ router.get('/', function(req, res) {
 // Router 추가
 router.use('/users', require('./users'));
 router.use('/travels', require('./travels'));
-router.use('/likes', require('./placeLikes'));
 router.use('/travels/:travelid/plans', require('./plans'));
+router.use('/budgets', require('./budgets'));
+router.use('/expenses', require('./expenses'));
+router.use('/likes', require('./placeLikes'));
 
 module.exports = router;
