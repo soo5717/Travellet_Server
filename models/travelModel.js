@@ -15,6 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         budget: {
             type: DataTypes.DOUBLE,
             allowNull: true
+        },
+        sumBudget: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
+        },
+        sumExpense: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
         }
     }, {
         tableName: 'travels',
