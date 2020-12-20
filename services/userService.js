@@ -10,6 +10,7 @@ module.exports = {
                 country: country
             });
         } catch(e) {
+            console.error(e);
             throw e;
         }
     },
@@ -22,6 +23,7 @@ module.exports = {
             });
             return result;
         } catch(e) {
+            console.error(e);
             throw e;
         }
     },
@@ -35,6 +37,7 @@ module.exports = {
             });
             return result;
         } catch(e) {
+            console.error(e);
             throw e;
         }
     },
@@ -50,6 +53,7 @@ module.exports = {
             });
             return result;
         } catch(e) {
+            console.error(e);
             throw e;
         }
     },
@@ -62,6 +66,7 @@ module.exports = {
             });
             return result;
         } catch(e) {
+            console.error(e);
             throw e;
         }
     }
