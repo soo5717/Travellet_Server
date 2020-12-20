@@ -14,7 +14,7 @@ module.exports = { //환율 변환 모듈 (대상 통화 금액, 대상 통화 �
             const result = await request(options);
             const parseResult = JSON.parse(result).conversion_rates;
 
-            return parseResult[to]*price;
+            return (parseResult[to]*price).toFixed(2); //소수점 2자리에서 반올림
         } catch (e) {
             throw e;
         }
