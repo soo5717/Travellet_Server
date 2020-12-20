@@ -31,7 +31,6 @@ module.exports = {
             if(pwd != user.pwd){
                 return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.MISMATCH_PWD));
             }
-            
             const { accessToken } = await jwt.sign(user);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.SIGNIN_SUCCESS, { accessToken: accessToken }));
         } catch(e) {
@@ -58,7 +57,7 @@ module.exports = {
         }
         try {
             const result = await userService.updateProfile(req.decoded, name, country);
-            if(result[0] === 0){
+            if(!result[0]){
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PROFILE_UPDATE_SUCCESS));
@@ -70,7 +69,7 @@ module.exports = {
     deleteProfile: async (req, res) => {
         try {
             const result = await userService.deleteProfile(req.decoded);
-            if(result === 0){
+            if(!result){
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PROFILE_DELETE_SUCCESS));
