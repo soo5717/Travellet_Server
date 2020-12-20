@@ -13,7 +13,7 @@ module.exports = {
         try{
             await userService.signUp(email, pwd, name, country);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.SIGNUP_SUCCESS));
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.SIGNUP_FAIL));
         }
@@ -33,7 +33,7 @@ module.exports = {
             }
             const { accessToken } = await jwt.sign(user);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.SIGNIN_SUCCESS, { accessToken: accessToken }));
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.SIGNIN_FAIL));
         }
@@ -45,7 +45,7 @@ module.exports = {
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.PROFILE_READ_SUCCESS, result));
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PROFILE_READ_FAIL));
         }
@@ -61,7 +61,7 @@ module.exports = {
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PROFILE_UPDATE_SUCCESS));
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PROFILE_UPDATE_FAIL));
         }
@@ -73,7 +73,7 @@ module.exports = {
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PROFILE_DELETE_SUCCESS));
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PROFILE_DELETE_FAIL));
         }

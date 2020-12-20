@@ -9,7 +9,7 @@ module.exports = {
                 name: name,
                 country: country
             });
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             throw e;
         }
@@ -22,7 +22,7 @@ module.exports = {
                 }
             });
             return result;
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             throw e;
         }
@@ -36,7 +36,7 @@ module.exports = {
                 attributes: ['email', 'name', 'country']
             });
             return result;
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             throw e;
         }
@@ -52,7 +52,7 @@ module.exports = {
                 }
             });
             return result;
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             throw e;
         }
@@ -65,7 +65,7 @@ module.exports = {
                 }
             });
             return result;
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             throw e;
         }
