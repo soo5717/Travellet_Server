@@ -1,0 +1,22 @@
+const request = require('request-promise-native');
+const { API_KEY } = require('../config/exchange');
+
+module.exports = { //환율 변환 모듈 (대상 통화 금액, 대상 통화 단위, 변환 통화 단위)
+    exchange: async(price, base, to) => {
+        const options = {
+            uri: `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${base}`
+        };
+        try {
+            if(base === to) //변환하려는 통화가 같을 경우
+                return price;
+
+            //JSON 파싱
+            const result = await request(options);
+            const parseResult = JSON.parse(result).conversion_rates;
+
+            return parseResult[to]*price;
+        } catch (e) {
+            throw e;
+        }
+    }
+}
