@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Budget', {
         currency: {
-            type: DataTypes.STRING(10),
+            type: DataTypes.STRING(3),
             allowNull: false
         },
         price: {
