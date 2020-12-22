@@ -19,5 +19,16 @@ module.exports = {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_CREATE_FAIL));
         }
+    },
+
+    readPlan: async (req, res) => {
+        try {
+            const result = await planService.reaPlan(req.decoded, req.params.travelid);
+            return res.status(sc.OK).send(rb.successDatasc.OK, rm.PLAN_READ_SUCCESS, result);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_READ_FAIL));
+        }
     }
 }

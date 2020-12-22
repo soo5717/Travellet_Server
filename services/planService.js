@@ -17,6 +17,21 @@ module.exports = {
         } catch (e) {
             throw e;
         }
+    },
+
+    readPlan: async (userId, travelId) => {
+        try {
+            const result = await Plan.findAndCountAll({
+                where: {
+                    user_id: userId,
+                    travel_id: travelId
+                },
+                attributes: ['date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
+            });
+            return result;
+        } catch(e) {
+            throw e;
+        }
     }
 
 }
