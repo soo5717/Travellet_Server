@@ -24,7 +24,7 @@ module.exports = {
             const result = await Plan.findAndCountAll({
                 where: {
                     user_id: userId,
-                    travel_id: travelId
+                    id: travelId
                 },
                 attributes: ['date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
             });
