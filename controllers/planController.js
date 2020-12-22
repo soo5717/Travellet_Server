@@ -23,9 +23,9 @@ module.exports = {
 
     readPlan: async (req, res) => {
         try {
-            console.log(req.params.id);
-            const result = await planService.readPlan(req.params.id);
-            return res.status(sc.OK).send(rb.successDatasc.OK, rm.PLAN_READ_SUCCESS, result);
+            console.log(req.params.travelid);
+            const result = await planService.readPlan(req.params.travelid);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_READ_SUCCESS, result));
         
         } catch (error) {
             console.error(error);
