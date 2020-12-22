@@ -19,12 +19,11 @@ module.exports = {
         }
     },
 
-    readPlan: async (userId, travelId) => {
+    readPlan: async (travelId) => {
         try {
-            const result = await Plan.findAndCountAll({
+            const result = await Plan.findAll({
                 where: {
-                    user_id: userId,
-                    id: travelId
+                    travel_id: travelId
                 },
                 attributes: ['date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
             });
