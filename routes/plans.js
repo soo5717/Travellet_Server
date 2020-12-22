@@ -4,9 +4,9 @@ const { checkToken } = require('../middleware/auth');
 const planController = require('../controllers/planController');
 
 // [POST] 일정 추가
-router.post('/:travelid/plans', checkToken, planController.createPlan);
+router.post('travels/:travelid/plans', checkToken, planController.createPlan);
 
 // [GET] 일정 조회
-router.get('/:travelid/plans', checkToken, planController.readPlan);
+router.get('travels/:travelid/plans', checkToken, planController.readPlan);
 
 module.exports = router;

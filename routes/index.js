@@ -8,8 +8,8 @@ router.get('/', function(req, res) {
 
 // Router 추가
 router.use('/users', require('./users'));
-//router.use('/travels', require('./travels'));
-router.use('/travels', require('./plans'));
+router.use('/travels', require('./travels'));
+router.use('/', require('./plans'));
 router.use('/budgets', require('./budgets'));
 router.use('/expenses', require('./expenses'));
 router.use('/likes', require('./placeLikes'));
