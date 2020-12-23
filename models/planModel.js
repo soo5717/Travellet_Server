@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         transport: {
-            type: DataTypes.STRING(20),
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         x: {
