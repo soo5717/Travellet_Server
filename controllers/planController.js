@@ -35,7 +35,7 @@ module.exports = {
 
     updatePlan: async (req, res) => {
         const { date, time, place, memo, category, transport, x, y } = req.body;
-        if(!date || !time || !place || !memo || !category || !transport || !travelId){
+        if(!date || !time || !place || !memo || !category || !transport ){
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
          }
  
