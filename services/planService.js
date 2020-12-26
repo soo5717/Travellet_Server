@@ -61,7 +61,7 @@ module.exports = {
         try {
             await Plan.destroy({
                 where : {
-                    id: planID
+                    id: planId
                 }
             });
         } catch (e) {
