@@ -33,7 +33,7 @@ module.exports = {
         }
     },
 
-    updatePlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
+    updatePlan: async (date, time, place, memo, category, transport, x, y, planId) => {
         try {
             const result = await Plan.update({
                 date: date,
@@ -47,7 +47,7 @@ module.exports = {
             },
             {
                 where : {
-                    travel_id: travelId
+                    id: planId
                 }
             }); 
             return result;           
