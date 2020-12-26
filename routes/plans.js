@@ -12,4 +12,7 @@ router.get('/', checkToken, planController.readPlan);
 // [PUT] 일정 수정
 router.put('/:id', checkToken, planController.updatePlan)
 
+//[DELETE] 일정 삭제
+router.delete('/:id', checkToken, planController.deletePlan);
+
 module.exports = router;

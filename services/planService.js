@@ -55,6 +55,19 @@ module.exports = {
             console.error(e);
             throw e;
         }
+    },
+
+    deletePlan: async (planId) => {
+        try {
+            await Plan.destroy({
+                where : {
+                    id: planID
+                }
+            });
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
     }
 
 }

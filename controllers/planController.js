@@ -32,6 +32,7 @@ module.exports = {
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_READ_FAIL));
         }
     },
+    
 
     updatePlan: async (req, res) => {
         const { date, time, place, memo, category, transport, x, y } = req.body;
@@ -45,7 +46,18 @@ module.exports = {
             
         } catch (error) {
             console.error(error);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PROFILE_UPDATE_FAIL));
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_UPDATE_FAIL));
+        }
+    },
+
+    deletePlan: async (req, res) => {
+        try{
+            const result = await planService.deletePlan(req.params.id);
+            return res.status(sc.NO_CONTENT).send(rb.successData(sc.NO_CONTENT, rm.PLAN_DELETE_SUCCESS, result));
+        } catch(error) {
+            console.error(error);
+            return res.statussc(INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_DELETE_FAIL));
         }
     }
+   
 }
