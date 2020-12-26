@@ -23,8 +23,8 @@ module.exports = {
 
     readPlan: async (req, res) => {
         try {
-            console.log(req.query.travel-id);
-            const result = await planService.readPlan(req.query.travel-id);
+            console.log(req.query.travelid);
+            const result = await planService.readPlan(req.query.travelid);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_READ_SUCCESS, result));
         
         } catch (error) {
