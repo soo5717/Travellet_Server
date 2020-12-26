@@ -31,6 +31,29 @@ module.exports = {
         } catch(e) {
             throw e;
         }
+    },
+
+    updatePlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
+        try {
+            await Plan.update({
+                date: date,
+                time: time,
+                place: place,
+                memo: memo,
+                category: category,
+                transport: transport,
+                x: x,
+                y: y
+            },
+            {
+                where : {
+                    travel_id: travelId
+                }
+            });            
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
     }
 
 }

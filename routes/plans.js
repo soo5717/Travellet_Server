@@ -9,4 +9,7 @@ router.post('/', checkToken, planController.createPlan);
 // [GET] 일정 조회
 router.get('/', checkToken, planController.readPlan);
 
+// [PUT] 일정 수정
+router.put('/:id', checkToken, planController.updatePlan)
+
 module.exports = router;
