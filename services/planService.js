@@ -35,7 +35,7 @@ module.exports = {
 
     updatePlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
         try {
-            await Plan.update({
+            const result = await Plan.update({
                 date: date,
                 time: time,
                 place: place,
@@ -49,7 +49,8 @@ module.exports = {
                 where : {
                     travel_id: travelId
                 }
-            });            
+            }); 
+            return result;           
         } catch (e) {
             console.error(e);
             throw e;
