@@ -40,7 +40,7 @@ module.exports = {
          }
  
         try {
-            await planService.updatePlan(date, time, place, memo, category, transport, x, y, req.params.id);
+            const result = await planService.updatePlan(date, time, place, memo, category, transport, x, y, req.params.id);
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PLAN_UPDATE_SUCCESS));
             
         } catch (error) {
