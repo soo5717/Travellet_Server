@@ -25,7 +25,7 @@ module.exports = {
                 where: {
                     travel_id: travelId
                 },
-                attributes: ['date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
+                attributes: ['id', 'date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
             });
             return result;
         } catch(e) {
