@@ -18,7 +18,7 @@ module.exports = {
             throw e;
         }
     },
-
+//
     readPlan: async (travelId) => {
         try {
             const result = await Plan.findAll({
