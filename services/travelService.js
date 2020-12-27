@@ -1,4 +1,5 @@
 const { Travel, sequelize } = require('../models');
+const { Op } = require('sequelize');
 
 module.exports = {
     createTravel: async (userId, title, startDate, endDate, budget) => {
@@ -15,11 +16,19 @@ module.exports = {
             throw e;
         }
     },
-    readTravel: async (userId) => {
+    readTravel: async (userId, type, date) => {
         try {
+            const whereDate = new Date(date);
+            let op = null;
+            if(type) { 
+                op = { [Op.gte] : whereDate }     
+            } else { 
+                op = { [Op.lt] : whereDate }
+            }
             const result = await Travel.findAll({
                 where: {
-                    user_id: userId
+                    user_id: userId,
+                    startDate: op
                 }, 
                 attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
             });
