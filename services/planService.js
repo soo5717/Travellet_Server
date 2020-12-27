@@ -23,14 +23,7 @@ module.exports = {
 
     readPlan: async (travelId) => {
         try {
-            const plantable = await Plan.findAll({
-                where: {
-                    travel_id: travelId
-                },
-                attributes: ['id', 'date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
-            });
-
-            const result = plantable.findAll({
+            const result = await Plan.findAll({
                 include: [
                     {
                         model: Budget, 
@@ -41,9 +34,11 @@ module.exports = {
                         attributes: ['priceKrw']
                     }
                 ],
+                where: {
+                    travel_id: travelId
+                },
                 attributes: ['id', 'date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y', 'priceKrw', 'priceKrw']
-            });
-            
+            });            
             return result;
         } catch(e) {
             throw e;
