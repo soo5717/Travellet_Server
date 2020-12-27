@@ -1,6 +1,5 @@
 const { Budget, Plan, sequelize } = require('../models');
 const { exchange } = require('../modules/exchange');
-const planService = require('./planService');
 const travelService = require('./travelService');
 
 // CUD 할 때, price를 priceKrw로 변환하여 travels 테이블의 sumBudget을 변경하여야 함.
@@ -28,13 +27,20 @@ module.exports = {
                 await travelService.updateSumBudget(travel_id, priceKrw, '+');
             });
         } catch (e) {
+            console.error(e);
             throw e;
         }
     },
     readBudget: async (planId) => {
         try {
-            
+            const result = await Budget.findAll({
+                where: {
+                    plan_id: planId
+                }
+            });
+            return result;
         } catch (e) {
+            console.error(e);
             throw e;
         }
     },
@@ -42,6 +48,7 @@ module.exports = {
         try {
             
         } catch (e) {
+            console.error(e);
             throw e;
         }
     },
