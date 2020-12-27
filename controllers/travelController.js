@@ -19,7 +19,13 @@ module.exports = {
     },
     readTravel: async (req, res) => {
         try {
-            const result = await travelService.readTravel(req.decoded);
+            const { upcoming, past } = req.query;
+            let result = null;
+            if(upcoming) {
+                result = await travelService.readTravel(req.decoded, 1, upcoming);
+            } else if(past) {
+                result = await travelService.readTravel(req.decoded, 0, past);
+            }
             if(Array.isArray(result) && !result.length){
                 return res.status(sc.NO_CONTENT).send();
             }
