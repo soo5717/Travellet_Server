@@ -1,4 +1,6 @@
 const { Plan } = require('../models');
+const { Budget } = require('../models');
+const { Expense } = require('../models');
 
 module.exports = {
     createPlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
@@ -21,12 +23,27 @@ module.exports = {
 
     readPlan: async (travelId) => {
         try {
-            const result = await Plan.findAll({
+            const plantable = await Plan.findAll({
                 where: {
                     travel_id: travelId
                 },
                 attributes: ['id', 'date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
             });
+
+            const result = plantable.findAll({
+                include: [
+                    {
+                        model: Budget, 
+                        attributes: ['priceKrw']
+                    },
+                    {
+                        model: Expense,
+                        attributes: ['priceKrw']
+                    }
+                ],
+                attributes: ['id', 'date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y', 'priceKrw', 'priceKrw']
+            });
+            
             return result;
         } catch(e) {
             throw e;
