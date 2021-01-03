@@ -19,6 +19,7 @@ module.exports = {
     },
     readTravel: async (req, res) => {
         try {
+            //수정 필요
             const { upcoming, past } = req.query;
             let result = null;
             if(upcoming) {
