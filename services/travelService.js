@@ -1,5 +1,6 @@
 const { Travel, sequelize } = require('../models');
-const { Op } = require('sequelize');
+const { Op, QueryTypes } = require('sequelize');
+const query = require('../modules/query');
 
 module.exports = {
     createTravel: async (userId, title, startDate, endDate, budget) => {
@@ -16,22 +17,22 @@ module.exports = {
             throw e;
         }
     },
-    readTravel: async (userId, type, date) => {
+    readTravel: async (userId, date) => {
         try {
-            const whereDate = new Date(date);
-            let op = null;
-            if(type) { 
-                op = { [Op.gte] : whereDate }     
-            } else { 
-                op = { [Op.lt] : whereDate }
+            const options = {
+                replacements: { 
+                    userId: userId,
+                    date: date
+                 },
+                 type: QueryTypes.SELECT
             }
-            const result = await Travel.findAll({
-                where: {
-                    user_id: userId,
-                    startDate: op
-                }, 
-                attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
-            });
+            const upcoming = await sequelize.query(query.readTravel('>='),  options);
+            const past = await sequelize.query(query.readTravel('<'), options);
+            
+            const result = { 
+                upcoming: upcoming, 
+                past: past
+            };
             return result;
         } catch (e) {
             console.error(e);
@@ -46,34 +47,6 @@ module.exports = {
                 }
             });
             return result;
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
-    },
-    updateSumBudget: async (id, priceKrw, operator) => {
-        try {
-            await Travel.update({
-                sumBudget: sequelize.literal(`sum_budget${operator}${priceKrw}`)},
-            {
-                where: {
-                    id: id
-                }
-            });
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
-    },
-    updateSumExpense: async (id, priceKrw, operator) => {
-        try {
-            await Travel.update({
-                sumExpense: sequelize.literal(`sum_expense${operator}${priceKrw}`)},
-            {
-                where: {
-                    id: id
-                }
-            });
         } catch (e) {
             console.error(e);
             throw e;

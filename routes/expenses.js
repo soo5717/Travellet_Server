@@ -8,7 +8,7 @@ router.post('/', checkToken, expenseController.createExpense);
 // [GET] 지출 목록 조회
 router.get('/', checkToken, expenseController.readExpense);
 // [PUT] 지출 수정
-router.put('/:id', checkToken, expenseController.updateExpense);
+router.patch('/:id', checkToken, expenseController.updateExpense);
 // [DELETE] 지출 삭제
 router.delete('/:id', checkToken, expenseController.deleteExpense);
 
