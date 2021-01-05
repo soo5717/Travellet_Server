@@ -7,7 +7,7 @@ const jwt = require('../modules/jwt');
 module.exports = {
     signUp: async (req, res) => {
         const { email, pwd, name, country } = req.body;
-        if(!email || !pwd || !name || !country){
+        if(!email || !pwd || !name || !country) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try{
@@ -20,15 +20,15 @@ module.exports = {
     },
     signIn: async (req, res) => {
         const { email, pwd } = req.body;
-        if(!email || !pwd){
+        if(!email || !pwd) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try{
             const user = await userService.signIn(email);
-            if(!user){
+            if(!user) {
                 return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NO_ACCOUNT));
             }
-            if(pwd != user.pwd){
+            if(pwd !== user.pwd) {
                 return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.MISMATCH_PWD));
             }
             const { accessToken } = await jwt.sign(user);
@@ -41,7 +41,8 @@ module.exports = {
     readProfile: async (req, res) => {
         try {
             const result = await userService.readProfile(req.decoded);
-            if(!result){
+            console.log(result);
+            if(!result) { //탈퇴 했을 경우
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.PROFILE_READ_SUCCESS, result));
@@ -57,7 +58,7 @@ module.exports = {
         }
         try {
             const result = await userService.updateProfile(req.decoded, name, country);
-            if(!result[0]){
+            if(!result[0]){ //업데이트 변경사항이 없는 경우
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PROFILE_UPDATE_SUCCESS));
@@ -69,7 +70,7 @@ module.exports = {
     deleteProfile: async (req, res) => {
         try {
             const result = await userService.deleteProfile(req.decoded);
-            if(!result){
+            if(!result) { //이미 삭제된 경우
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.PROFILE_DELETE_SUCCESS));
