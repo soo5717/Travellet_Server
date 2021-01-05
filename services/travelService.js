@@ -1,4 +1,4 @@
-const { Travel, sequelize } = require('../models');
+const { Travel } = require('../models');
 const { Op } = require('sequelize');
 
 module.exports = {
