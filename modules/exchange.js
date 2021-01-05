@@ -6,6 +6,7 @@ module.exports = { //환율 변환 모듈 (대상 통화 금액, 대상 통화 �
         const options = {
             uri: `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${base}`
         };
+        console.log(options.uri);
         try {
             if(base === to) //변환하려는 통화가 같을 경우
                 return (price).toFixed(2);
