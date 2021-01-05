@@ -1,5 +1,6 @@
-const { Travel } = require('../models');
-const { Op } = require('sequelize');
+const { Travel, sequelize } = require('../models');
+const { Op, QueryTypes } = require('sequelize');
+const query = require('../modules/query');
 
 module.exports = {
     createTravel: async (userId, title, startDate, endDate, budget) => {
@@ -18,19 +19,15 @@ module.exports = {
     },
     readTravel: async (userId, date) => {
         try {
-            const whereDate = new Date(date);
-            const upcoming = await Travel.findAll({
-                where: {
-                    user_id: userId,
-                    startDate: { [Op.gte] : whereDate }
-                }
-            });
-            const past = await Travel.findAll({
-                where: {
-                    user_id: userId,
-                    startDate: { [Op.lt] : whereDate }
-                }
-            });
+            const options = {
+                replacements: { 
+                    userId: userId,
+                    date: date
+                 },
+                 type: QueryTypes.SELECT
+            }
+            const upcoming = await sequelize.query(query.readTravel('>='),  options);
+            const past = await sequelize.query(query.readTravel('<'), options);
             
             const result = { 
                 upcoming: upcoming, 
