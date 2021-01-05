@@ -23,15 +23,13 @@ module.exports = {
                 where: {
                     user_id: userId,
                     startDate: { [Op.gte] : whereDate }
-                }, 
-                attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
+                }
             });
             const past = await Travel.findAll({
                 where: {
                     user_id: userId,
                     startDate: { [Op.lt] : whereDate }
-                }, 
-                attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
+                }
             });
             
             const result = { 
