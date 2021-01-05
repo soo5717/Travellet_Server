@@ -1,6 +1,5 @@
-const { Expense, Plan, sequelize } = require('../models');
+const { Expense } = require('../models');
 const { exchange } = require('../modules/exchange');
-const travelService = require('./travelService');
 
 // CUD 할 때, price를 priceKrw로 변환하여 travels 테이블의 sumExpense를 변경하여야 함.
 module.exports = {

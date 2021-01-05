@@ -56,33 +56,5 @@ module.exports = {
             console.error(e);
             throw e;
         }
-    },
-    updateSumBudget: async (id, priceKrw, operator) => {
-        try {
-            await Travel.update({
-                sumBudget: sequelize.literal(`sum_budget${operator}${priceKrw}`)},
-            {
-                where: {
-                    id: id
-                }
-            });
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
-    },
-    updateSumExpense: async (id, priceKrw, operator) => {
-        try {
-            await Travel.update({
-                sumExpense: sequelize.literal(`sum_expense${operator}${priceKrw}`)},
-            {
-                where: {
-                    id: id
-                }
-            });
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
     }
 }
