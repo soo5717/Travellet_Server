@@ -16,22 +16,28 @@ module.exports = {
             throw e;
         }
     },
-    readTravel: async (userId, type, date) => {
+    readTravel: async (userId, date) => {
         try {
             const whereDate = new Date(date);
-            let op = null;
-            if(type) { 
-                op = { [Op.gte] : whereDate }     
-            } else { 
-                op = { [Op.lt] : whereDate }
-            }
-            const result = await Travel.findAll({
+            const upcoming = await Travel.findAll({
                 where: {
                     user_id: userId,
-                    startDate: op
+                    startDate: { [Op.gte] : whereDate }
                 }, 
                 attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
             });
+            const past = await Travel.findAll({
+                where: {
+                    user_id: userId,
+                    startDate: { [Op.lt] : whereDate }
+                }, 
+                attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
+            });
+            
+            const result = { 
+                upcoming: upcoming, 
+                past: past
+            };
             return result;
         } catch (e) {
             console.error(e);
