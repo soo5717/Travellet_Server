@@ -6,7 +6,7 @@ const sc = require('../modules/statusCode');
 module.exports = {
     createTravel: async (req, res) => {
         const { title, startDate, endDate, budget } = req.body;
-        if(!title || !startDate || !endDate || !budget) {
+        if(!title || !startDate || !endDate || budget === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {

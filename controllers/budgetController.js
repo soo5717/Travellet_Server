@@ -6,7 +6,7 @@ const sc = require('../modules/statusCode');
 module.exports = {
     createBudget: async(req, res) => {
         const { planId, currency, price, memo, category } = req.body;
-        if(!planId || !currency || !price || !memo || !category) {
+        if(!planId || !currency || !price || !memo || category === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
@@ -28,7 +28,7 @@ module.exports = {
     },
     updateBudget: async(req, res) => {
         const { currency, price, memo, category } = req.body;
-        if(!currency || !price || !memo || !category) {
+        if(!currency || !price || !memo || category === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
