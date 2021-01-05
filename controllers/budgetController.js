@@ -6,7 +6,7 @@ const sc = require('../modules/statusCode');
 module.exports = {
     createBudget: async(req, res) => {
         const { planId, currency, price, memo, category } = req.body;
-        if(!planId || !currency || !price || !memo || !category){
+        if(!planId || !currency || !price || !memo || !category) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
@@ -20,9 +20,6 @@ module.exports = {
     readBudget: async(req, res) => {
         try {
             const result = await budgetService.readBudget(req.query.planid);
-            if(Array.isArray(result) && !result.length){
-                return res.status(sc.NO_CONTENT).send();
-            }
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.BUDGET_READ_SUCCESS, result));          
         } catch (e) {
             console.error(e);
@@ -31,12 +28,12 @@ module.exports = {
     },
     updateBudget: async(req, res) => {
         const { currency, price, memo, category } = req.body;
-        if(!currency || !price || !memo || !category){
+        if(!currency || !price || !memo || !category) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
             const result = await budgetService.updateBudget(req.params.id, currency, price, memo, category);
-            if(!result[0]){
+            if(!result[0]) { //업데이트 변경사항이 없는 경우
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.BUDGET_UPDATE_SUCCESS));
@@ -47,7 +44,10 @@ module.exports = {
     },
     deleteBudget: async(req, res) => {
         try {
-            await budgetService.deleteBudget(req.params.id);
+            const result = await budgetService.deleteBudget(req.params.id);
+            if(!result) { //이미 삭제된 경우
+                return res.status(sc.NO_CONTENT).send();
+            }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.BUDGET_DELETE_SUCCESS));              
         } catch (e) {
             console.error(error);
