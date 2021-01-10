@@ -1,4 +1,6 @@
 const { Plan } = require('../models');
+const { Budget } = require('../models/budgetModel');
+const { Expense } = require('../models/expenseModel');
 
 module.exports = {
     createPlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
@@ -18,7 +20,7 @@ module.exports = {
             throw e;
         }
     },
-//
+
     readPlan: async (travelId) => {
         try {
             const result = await Plan.findAll({
