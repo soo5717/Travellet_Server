@@ -1,6 +1,6 @@
-const { Plan } = require('../models');
-const { Budget } = require('../models/budgetModel');
-const { Expense } = require('../models/expenseModel');
+const { Plan, sequelize } = require('../models');
+const { QueryTypes } = require('sequelize');
+const query = require('../modules/query');
 
 module.exports = {
     createPlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
@@ -23,14 +23,16 @@ module.exports = {
 
     readPlan: async (travelId) => {
         try {
-            const result = await Plan.findAll({
-                where: {
-                    travel_id: travelId
-                },
-                attributes: ['id', 'date', 'time', 'place', 'memo', 'category', 'transport', 'x', 'y']
-            });
+            const options = {
+                replacements: { 
+                    travelId: travelId
+                 },
+                 type: QueryTypes.SELECT
+            }
+            const result = await sequelize.query(query.readPlan(), options);
             return result;
         } catch(e) {
+            console.error(e);
             throw e;
         }
     },
