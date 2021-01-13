@@ -1,4 +1,6 @@
 const { Travel, sequelize } = require('../models');
+const { Op, QueryTypes } = require('sequelize');
+const query = require('../modules/query');
 
 module.exports = {
     createTravel: async (userId, title, startDate, endDate, budget) => {
@@ -15,14 +17,22 @@ module.exports = {
             throw e;
         }
     },
-    readTravel: async (userId) => {
+    readTravel: async (userId, date) => {
         try {
-            const result = await Travel.findAll({
-                where: {
-                    user_id: userId
-                }, 
-                attributes: ['id', 'title', 'startDate', 'endDate', 'budget', 'sumBudget', 'sumExpense']
-            });
+            const options = {
+                replacements: { 
+                    userId: userId,
+                    date: date
+                 },
+                 type: QueryTypes.SELECT
+            }
+            const upcoming = await sequelize.query(query.readTravel('>='),  options);
+            const past = await sequelize.query(query.readTravel('<'), options);
+            
+            const result = { 
+                upcoming: upcoming, 
+                past: past
+            };
             return result;
         } catch (e) {
             console.error(e);
@@ -37,34 +47,6 @@ module.exports = {
                 }
             });
             return result;
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
-    },
-    updateSumBudget: async (id, priceKrw, operator) => {
-        try {
-            await Travel.update({
-                sumBudget: sequelize.literal(`sum_budget${operator}${priceKrw}`)},
-            {
-                where: {
-                    id: id
-                }
-            });
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
-    },
-    updateSumExpense: async (id, priceKrw, operator) => {
-        try {
-            await Travel.update({
-                sumExpense: sequelize.literal(`sum_expense${operator}${priceKrw}`)},
-            {
-                where: {
-                    id: id
-                }
-            });
         } catch (e) {
             console.error(e);
             throw e;

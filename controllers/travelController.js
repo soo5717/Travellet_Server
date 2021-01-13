@@ -6,7 +6,7 @@ const sc = require('../modules/statusCode');
 module.exports = {
     createTravel: async (req, res) => {
         const { title, startDate, endDate, budget } = req.body;
-        if(!title || !startDate || !endDate || !budget){
+        if(!title || !startDate || !endDate || budget === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
@@ -18,11 +18,12 @@ module.exports = {
         }
     },
     readTravel: async (req, res) => {
+        const { date } = req.query;
+        if(!date) {
+            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+        }
         try {
-            const result = await travelService.readTravel(req.decoded);
-            if(Array.isArray(result) && !result.length){
-                return res.status(sc.NO_CONTENT).send();
-            }
+            const result = await travelService.readTravel(req.decoded, date);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.TRAVEL_READ_SUCCESS, result));          
         } catch (e) {
             console.error(e);
@@ -32,7 +33,7 @@ module.exports = {
     deleteTravel: async (req, res) => {
         try {
             const result = await travelService.deleteTravel(req.params.id);
-            if(!result){
+            if(!result) {
                 return res.status(sc.NO_CONTENT).send();
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.TRAVEL_DELETE_SUCCESS));              
