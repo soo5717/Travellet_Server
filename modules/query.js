@@ -33,6 +33,7 @@ module.exports = {
                         WHERE e.plan_id = p.id ) sum_expense
                     FROM plans p
                 ) AS j
+            ON j.plan_id = p.id
             WHERE p.travel_id = :travelId
             GROUP BY p.id
             
