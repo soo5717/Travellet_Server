@@ -20,7 +20,7 @@ module.exports = {
 
     readPlan: () => {
         return ` 
-            SELECT p.*, infull(sum(j.sum_expense), 0) sum_budget, infull(sum(j.sum_expense), 0) sum_expense
+            SELECT p.*, ifnull(sum(j.sum_expense), 0) sum_budget, ifnull(sum(j.sum_expense), 0) sum_expense
             FROM plans p
             LEFT JOIN
                 ( 
