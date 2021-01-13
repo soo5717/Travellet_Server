@@ -23,8 +23,7 @@ module.exports = {
             SELECT p.*, ifnull(sum(j.sum_expense), 0) sum_budget, ifnull(sum(j.sum_expense), 0) sum_expense
             FROM plans p
             LEFT JOIN
-                ( 
-                    SELECT p.id,
+                (   SELECT p.id,
                     (   SELECT sum(b.price_krw)
                         FROM budgets b
                         WHERE b.plan_id = p.id) sum_budget,     
@@ -33,9 +32,8 @@ module.exports = {
                         WHERE e.plan_id = p.id ) sum_expense
                     FROM plans p
                 ) AS j
+            ON j.plan_id = p.id
             WHERE p.travel_id = :travelId
-            GROUP BY p.id
-            
-        `
+            GROUP BY p.id`
     }
 }
