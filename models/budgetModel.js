@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         category: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        payment: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     }, {
         tableName: 'budgets',
