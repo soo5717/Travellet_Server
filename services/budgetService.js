@@ -26,7 +26,20 @@ module.exports = {
                 where: {
                     plan_id: planId
                 },
-                attributes: { exclude: ['PlanId'] } //특정 속성 제외
+                attributes: { exclude: ['PlanId', 'plan_id'] } //특정 속성 제외
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    readBudgetSum: async (planId) => {
+        try {
+            const result = await Budget.sum('price_krw',{
+               where: {
+                   plan_id: planId
+                } 
             });
             return result;
         } catch (e) {

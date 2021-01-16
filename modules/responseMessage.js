@@ -38,6 +38,8 @@ module.exports = {
     PLAN_CREATE_FAIL: '일정 추가 실패',
     PLAN_READ_SUCCESS: '일정 목록 조회 성공',
     PLAN_READ_FAIL: '일정 목록 조회 실패',
+    PLAN_DETAIL_READ_SUCCESS: '일정 조회 성공',
+    PLAN_DETAIL_READ_FAIL: '일정 조회 실패',
     PLAN_UPDATE_SUCCESS: '일정 수정 성공',
     PLAN_UPDATE_FAIL: '일정 수정 실패',
     PLAN_DELETE_SUCCESS: '일정 삭제 성공',

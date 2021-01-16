@@ -1,4 +1,6 @@
 const planService = require('../services/planService');
+const budgetService = require('../services/budgetService');
+const expenseService = require('../services/expenseService');
 const rb = require('../modules/responseBody');
 const rm = require('../modules/responseMessage');
 const sc = require('../modules/statusCode');
@@ -33,6 +35,25 @@ module.exports = {
         }
     },
     
+    readPlanDetail: async (req, res) => {
+        try {
+            const result = await planService.readPlanDetail(req.params.id);
+            const sum_budget = await budgetService.readBudgetSum(req.params.id);
+            const sum_expense = await expenseService.readExpenseSum(req.params.id);
+            const budget = await budgetService.readBudget(req.params.id);
+            const expense = await expenseService.readExpense(req.params.id);
+
+            result.sum_budget = sum_budget;
+            result.sum_expense = sum_expense;
+            result.budget = budget;
+            result.expense = expense;
+            
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_DETAIL_READ_SUCCESS, result));
+        } catch (error) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_DETAIL_READ_FAIL));
+        }
+    },
 
     updatePlan: async (req, res) => {
         const { date, time, place, memo, category, transport, x, y } = req.body;

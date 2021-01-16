@@ -5,8 +5,6 @@ const expenseController = require('../controllers/expenseController');
 
 // [POST] 지출 추가
 router.post('/', checkToken, expenseController.createExpense);
-// [GET] 지출 목록 조회
-router.get('/', checkToken, expenseController.readExpense);
 // [PUT] 지출 수정
 router.patch('/:id', checkToken, expenseController.updateExpense);
 // [DELETE] 지출 삭제

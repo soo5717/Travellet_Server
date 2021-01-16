@@ -17,15 +17,6 @@ module.exports = {
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.EXPENSE_CREATE_FAIL));
         }
     },
-    readExpense: async(req, res) => {
-        try {
-            const result = await expenseService.readExpense(req.query.planid);
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.EXPENSE_READ_SUCCESS, result));          
-        } catch (e) {
-            console.error(e);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.EXPENSE_READ_FAIL));
-        }
-    },
     updateExpense: async(req, res) => {
         const { currency, price, memo, category, payment } = req.body;
         if(!currency || !price || !memo || category === undefined || payment === undefined){

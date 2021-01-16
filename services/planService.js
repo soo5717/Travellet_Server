@@ -1,4 +1,4 @@
-const { Plan, sequelize } = require('../models');
+const { Plan, Travel, sequelize } = require('../models');
 const { QueryTypes } = require('sequelize');
 const query = require('../modules/query');
 
@@ -32,6 +32,28 @@ module.exports = {
             const result = await sequelize.query(query.readPlan(), options);
             return result;
         } catch(e) {
+            console.error(e);
+            throw e;
+        }
+    },
+
+    readPlanDetail: async (id) => {
+        try {
+            const result = await Plan.findOne({
+                include: [
+                    {
+                        model: Travel,
+                        attributes: ['start_date']
+                    }
+                ],
+                where: {
+                    id: id
+                },
+                attributes: ['id', 'date', 'place', 'memo'],
+                raw: true
+            });
+            return result;
+        } catch (e) {
             console.error(e);
             throw e;
         }
