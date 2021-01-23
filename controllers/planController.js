@@ -36,15 +36,16 @@ module.exports = {
     },
     
     readPlanDetail: async (req, res) => {
+        const { id } = req.params;
         try {
-            const result = await planService.readPlanDetail(req.params.id);
-            const sum_budget = await budgetService.readBudgetSum(req.params.id);
-            const sum_expense = await expenseService.readExpenseSum(req.params.id);
-            const budget = await budgetService.readBudget(req.params.id);
-            const expense = await expenseService.readExpense(req.params.id);
+            const result = await planService.readPlanDetail(id);
+            const sumBudget = await budgetService.readBudgetSum(id);
+            const sumExpense = await expenseService.readExpenseSum(id);
+            const budget = await budgetService.readBudget(id);
+            const expense = await expenseService.readExpense(id);
 
-            result.sum_budget = sum_budget;
-            result.sum_expense = sum_expense;
+            result.sum_budget = sumBudget;
+            result.sum_expense = sumExpense;
             result.budget = budget;
             result.expense = expense;
             
