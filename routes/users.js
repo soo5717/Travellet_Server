@@ -11,7 +11,7 @@ router.post('/signin', userController.signIn);
 // [GET] 프로필 조회
 router.get('/', checkToken, userController.readProfile);
 // [PUT] 프로필 수정
-router.put('/', checkToken, userController.updateProfile);
+router.patch('/', checkToken, userController.updateProfile);
 // [DELETE] 회원 탈퇴
 router.delete('/', checkToken, userController.deleteProfile);
 
