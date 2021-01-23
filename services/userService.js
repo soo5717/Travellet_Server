@@ -41,11 +41,11 @@ module.exports = {
             throw e;
         }
     },
-    updateProfile: async (id, name, country) => {
+    updateProfile: async (id, name) => {
         try {
             const result = await User.update({
-                name: name,
-                country: country},
+                name: name 
+            },
             {
                 where: {
                     id: id

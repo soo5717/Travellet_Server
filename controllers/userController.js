@@ -52,12 +52,12 @@ module.exports = {
         }
     },
     updateProfile: async (req, res) => {
-        const { name, country } = req.body;
-        if(!name || !country) {
+        const { name } = req.body;
+        if(!name) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            const result = await userService.updateProfile(req.decoded, name, country);
+            const result = await userService.updateProfile(req.decoded, name);
             if(!result[0]){ //업데이트 변경사항이 없는 경우
                 return res.status(sc.NO_CONTENT).send();
             }
