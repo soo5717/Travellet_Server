@@ -1,23 +1,40 @@
-const { Plan, sequelize } = require('../models');
+const { Plan, sequelize, Budget } = require('../models');
 const { QueryTypes } = require('sequelize');
 const query = require('../modules/query');
 const { transportExp } = require('../modules/transportExpense');
 
 module.exports = {
-    createPlan: async (date, time, place, memo, category, transport, x, y, travelId) => {
+    createPlan: async (plan) => {
+        console.log(plan);
         try {
-            await Plan.create({
-                date: date,
-                time: time,
-                place: place,
-                memo: memo,
-                category: category,
-                transport: transport,
-                x: x,
-                y: y,                
-                travel_id: travelId
-            });            
+            await Plan.create(plan, {
+                include: [
+                    {
+                        model: Budget
+                    }                    
+            ]});            
         } catch (e) {
+            throw e;
+        }
+    },
+
+    calculateTransport: async(planId, sx, sy, ex, ey, pathType) => {
+        try { 
+            const transport = await transportExp(sx, sy, ex, ey, pathType);
+            //교통비 환전은 어케함?
+            //const price = await exchange(transport, 'KRW', 'KRW');
+            await Budget.update({
+                price: transport,
+                priceKrw: transport,},
+            {
+                where: {
+                    plan_id: planId,
+                    category: 6
+                }
+            });
+            return transport;
+        } catch(e) {
+            console.error(e);
             throw e;
         }
     },
@@ -25,21 +42,13 @@ module.exports = {
     readPlan: async (travelId) => {
         try {
             const options = {
-                replacements: { 
+                replacements: {
                     travelId: travelId
                  },
                  type: QueryTypes.SELECT
             }
             const result = await sequelize.query(query.readPlan(), options);
-            
-                //샘플
-                sx=126.9027279;
-                sy=37.5349277;
-                ex=126.9145430;
-                ey=37.5499421;
-                pathType=2;
-            const test = await transportExp(sx, sy, ex, ey, pathType);
-            return test;
+            return result;
         } catch(e) {
             console.error(e);
             throw e;

@@ -3,7 +3,7 @@ const { exchange } = require('../modules/exchange');
 
 module.exports = {
     createBudget: async (planId, currency, price, memo, category) => {
-        try {
+        try {  
             //한국 통화로 변환
             const priceKrw = await exchange(price, currency, 'KRW');
 
@@ -19,7 +19,7 @@ module.exports = {
             console.error(e);
             throw e;
         }
-    },
+    },    
     readBudget: async (planId) => {
         try {
             const result = await Budget.findAll({
@@ -38,7 +38,7 @@ module.exports = {
         try {
             //한국 통화로 변환
             const priceKrw = await exchange(price, currency, 'KRW');
-
+            
             const result = await Budget.update({
                 currency: currency,
                 price: price,

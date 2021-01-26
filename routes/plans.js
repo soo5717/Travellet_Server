@@ -15,4 +15,7 @@ router.put('/:id', checkToken, planController.updatePlan)
 //[DELETE] 일정 삭제
 router.delete('/:id', checkToken, planController.deletePlan);
 
+//[POST] 교통비 측정
+router.post('/:id', checkToken, planController.calculateTransport);
+
 module.exports = router;
