@@ -25,6 +25,10 @@ module.exports = {
     PROFILE_DELETE_SUCCESS: '회원 탈퇴 성공',
     PROFILE_DELETE_FAIL: '회원 탈퇴 실패',
 
+    //환율(R)
+    EXCHANGE_RATE_READ_SUCCESS: '환율 조회 성공',
+    EXCHANGE_RATE_READ_FAIL: '환율 조회 실패',
+
     //여행(CRD)
     TRAVEL_CREATE_SUCCESS: '여행 추가 성공',
     TRAVEL_CREATE_FAIL: '여행 추가 실패',

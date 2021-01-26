@@ -30,7 +30,11 @@ module.exports = { //환율 변환 모듈 (대상 통화 금액, 대상 통화 �
             const result = await request(options);
             const parseResult = JSON.parse(result).conversion_rates;
 
-            return parseResult[to];
+            const exchangeRate = {
+                rateTo: parseResult[to],
+                rateKrw: parseResult['KRW']
+            };
+            return exchangeRate;
         } catch (e) {
             throw e;
         }

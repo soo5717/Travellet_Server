@@ -1,4 +1,5 @@
 const { User } = require('../models')
+const { exchangeRate } = require('../modules/exchange');
 
 module.exports = { 
     signUp: async (email, pwd, name, country) => {
@@ -64,6 +65,19 @@ module.exports = {
                     id: id
                 }
             });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    readExchangeRate: async (id, base) => {
+        try {
+            const user = await User.findByPk(id);
+            const currency = user.country.slice(-3); //문자열 자르기
+            
+            let result = await exchangeRate(base, currency);
+            result.currency = currency;
             return result;
         } catch (e) {
             console.error(e);
