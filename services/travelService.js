@@ -23,8 +23,8 @@ module.exports = {
                 replacements: { 
                     userId: userId,
                     date: date
-                 },
-                 type: QueryTypes.SELECT
+                },
+                type: QueryTypes.SELECT
             }
             const upcoming = await sequelize.query(query.readTravel('>='),  options);
             const past = await sequelize.query(query.readTravel('<'), options);

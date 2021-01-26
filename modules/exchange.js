@@ -19,5 +19,24 @@ module.exports = { //환율 변환 모듈 (대상 통화 금액, 대상 통화 �
         } catch (e) {
             throw e;
         }
+    },
+    exchangeRate: async(base, to) => {
+        const options = {
+            uri: `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${base}`
+        };
+        console.log(options.uri);
+        try {
+            //JSON 파싱
+            const result = await request(options);
+            const parseResult = JSON.parse(result).conversion_rates;
+
+            const exchangeRate = {
+                rateTo: parseResult[to],
+                rateKrw: parseResult['KRW']
+            };
+            return exchangeRate;
+        } catch (e) {
+            throw e;
+        }
     }
 }

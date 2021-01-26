@@ -1,16 +1,13 @@
 const { Budget } = require('../models');
-const { exchange } = require('../modules/exchange');
 
 module.exports = {
-    createBudget: async (planId, currency, price, memo, category) => {
-        try {  
-            //한국 통화로 변환
-            const priceKrw = await exchange(price, currency, 'KRW');
-
+    createBudget: async (planId, currency, price, priceTo, priceKrw, memo, category) => {
+        try {
             await Budget.create({
                 plan_id: planId,
                 currency: currency,
                 price: price,
+                priceTo: priceTo,
                 priceKrw: priceKrw,
                 memo: memo,
                 category: category
@@ -26,7 +23,7 @@ module.exports = {
                 where: {
                     plan_id: planId
                 },
-                attributes: { exclude: ['PlanId'] } //특정 속성 제외
+                attributes: { exclude: ['PlanId', 'plan_id'] } //특정 속성 제외
             });
             return result;
         } catch (e) {
@@ -34,7 +31,34 @@ module.exports = {
             throw e;
         }
     },
-    updateBudget: async (id, currency, price, memo, category) => {
+    readBudgetSum: async (planId) => {
+        try {
+            const result = await Budget.sum('price_krw',{
+               where: {
+                   plan_id: planId
+                } 
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    readBudgetDetail: async (id) => {
+        try {
+            const result = await Budget.findOne({
+                where: {
+                    id: id
+                },
+                attributes: { exclude: ['priceKrw', 'payment', 'PlanId', 'plan_id'] } //특정 속성 제외
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    updateBudget: async (id, currency, price, priceTo, priceKrw, memo, category) => {
         try {
             //한국 통화로 변환
             const priceKrw = await exchange(price, currency, 'KRW');
@@ -42,6 +66,7 @@ module.exports = {
             const result = await Budget.update({
                 currency: currency,
                 price: price,
+                priceTo: priceTo,
                 priceKrw: priceKrw,
                 memo: memo,
                 category: category},

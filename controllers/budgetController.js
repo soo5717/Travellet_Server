@@ -5,34 +5,34 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createBudget: async(req, res) => {
-        const { planId, currency, price, memo, category } = req.body;
-        if(!planId || !currency || !price || !memo || category === undefined) {
+        const { planId, currency, price, priceTo, priceKrw, memo, category } = req.body;
+        if(!planId || !currency || !price || !priceTo || !priceKrw || !memo || category === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            await budgetService.createBudget(planId, currency, price, memo, category);
+            await budgetService.createBudget(planId, currency, price, priceTo, priceKrw, memo, category);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.BUDGET_CREATE_SUCCESS));         
         } catch (e) {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_CREATE_FAIL));
         }
     },
-    readBudget: async(req, res) => {
+    readBudgetDetail: async(req, res) => {
         try {
-            const result = await budgetService.readBudget(req.query.planid);
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.BUDGET_READ_SUCCESS, result));          
+           const result = await budgetService.readBudgetDetail(req.params.id);
+           return res.status(sc.OK).send(rb.successData(sc.OK, rm.BUDGET_DETAIL_READ_SUCCESS, result));         
         } catch (e) {
-            console.error(e);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_READ_FAIL));
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DETAIL_READ_FAIL));
         }
     },
     updateBudget: async(req, res) => {
-        const { currency, price, memo, category } = req.body;
-        if(!currency || !price || !memo || category === undefined) {
+        const { currency, price, priceTo, priceKrw, memo, category } = req.body;
+        if(!currency || !price || !priceTo || !priceKrw || !memo || category === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            const result = await budgetService.updateBudget(req.params.id, currency, price, memo, category);
+            const result = await budgetService.updateBudget(req.params.id, currency, price, priceTo, priceKrw, memo, category);
             if(!result[0]) { //업데이트 변경사항이 없는 경우
                 return res.status(sc.NO_CONTENT).send();
             }

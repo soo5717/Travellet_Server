@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull: false
         },
+        priceTo: {
+            type: DataTypes.DOUBLE,
+            allowNull: false
+        },
         priceKrw: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -17,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         category: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         payment: {

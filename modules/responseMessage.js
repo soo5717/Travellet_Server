@@ -25,6 +25,10 @@ module.exports = {
     PROFILE_DELETE_SUCCESS: '회원 탈퇴 성공',
     PROFILE_DELETE_FAIL: '회원 탈퇴 실패',
 
+    //환율(R)
+    EXCHANGE_RATE_READ_SUCCESS: '환율 조회 성공',
+    EXCHANGE_RATE_READ_FAIL: '환율 조회 실패',
+
     //여행(CRD)
     TRAVEL_CREATE_SUCCESS: '여행 추가 성공',
     TRAVEL_CREATE_FAIL: '여행 추가 실패',
@@ -38,6 +42,8 @@ module.exports = {
     PLAN_CREATE_FAIL: '일정 추가 실패',
     PLAN_READ_SUCCESS: '일정 목록 조회 성공',
     PLAN_READ_FAIL: '일정 목록 조회 실패',
+    PLAN_DETAIL_READ_SUCCESS: '일정 조회 성공',
+    PLAN_DETAIL_READ_FAIL: '일정 조회 실패',
     PLAN_UPDATE_SUCCESS: '일정 수정 성공',
     PLAN_UPDATE_FAIL: '일정 수정 실패',
     PLAN_DELETE_SUCCESS: '일정 삭제 성공',
@@ -48,6 +54,8 @@ module.exports = {
     BUDGET_CREATE_FAIL: '예산 추가 실패',
     BUDGET_READ_SUCCESS: '예산 목록 조회 성공',
     BUDGET_READ_FAIL: '예산 목록 조회 실패',
+    BUDGET_DETAIL_READ_SUCCESS: '예산 내용 조회 성공',
+    BUDGET_DETAIL_READ_FAIL: '예산 내용 조회 실패',
     BUDGET_UPDATE_SUCCESS: '예산 수정 성공',
     BUDGET_UPDATE_FAIL: '예산 수정 실패',
     BUDGET_DELETE_SUCCESS: '예산 삭제 성공',
@@ -58,6 +66,8 @@ module.exports = {
     EXPENSE_CREATE_FAIL: '지출 추가 실패',
     EXPENSE_READ_SUCCESS: '지출 목록 조회 성공',
     EXPENSE_READ_FAIL: '지출 목록 조회 실패',
+    EXPENSE_DETAIL_READ_SUCCESS: '지출 내용 조회 성공',
+    EXPENSE_DETAIL_READ_FAIL: '지출 내용 조회 실패',
     EXPENSE_UPDATE_SUCCESS: '지출 수정 성공',
     EXPENSE_UPDATE_FAIL: '지출 수정 실패',
     EXPENSE_DELETE_SUCCESS: '지출 삭제 성공',

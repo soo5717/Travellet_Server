@@ -52,12 +52,12 @@ module.exports = {
         }
     },
     updateProfile: async (req, res) => {
-        const { name, country } = req.body;
-        if(!name || !country) {
+        const { name } = req.body;
+        if(!name) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            const result = await userService.updateProfile(req.decoded, name, country);
+            const result = await userService.updateProfile(req.decoded, name);
             if(!result[0]){ //업데이트 변경사항이 없는 경우
                 return res.status(sc.NO_CONTENT).send();
             }
@@ -77,6 +77,20 @@ module.exports = {
         } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PROFILE_DELETE_FAIL));
+        }
+    },
+    readExchangeRate: async (req, res) => {
+        const { base } = req.query;
+        if(!base) {
+            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+        }
+        try {
+            const result = await userService.readExchangeRate(req.decoded, base);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.EXCHANGE_RATE_READ_SUCCESS, result));
+        } catch (e) {
+            console.error(e);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.EXCHANGE_RATE_READ_FAIL));
+
         }
     }
 };

@@ -7,6 +7,8 @@ const planController = require('../controllers/planController');
 router.post('/', checkToken, planController.createPlan);
 
 // [GET] 일정 조회
+router.get('/:id', checkToken, planController.readPlanDetail);
+// [GET] 일정 목록 조회
 router.get('/', checkToken, planController.readPlan);
 
 // [PUT] 일정 수정
