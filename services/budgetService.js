@@ -44,6 +44,20 @@ module.exports = {
             throw e;
         }
     },
+    readBudgetDetail: async (id) => {
+        try {
+            const result = await Budget.findOne({
+                where: {
+                    id: id
+                },
+                attributes: { exclude: ['priceKrw', 'payment', 'PlanId', 'plan_id'] } //특정 속성 제외
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
     updateBudget: async (id, currency, price, priceTo, priceKrw, memo, category) => {
         try {
             const result = await Budget.update({

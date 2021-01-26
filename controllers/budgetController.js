@@ -17,6 +17,15 @@ module.exports = {
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_CREATE_FAIL));
         }
     },
+    readBudgetDetail: async(req, res) => {
+        try {
+           const result = await budgetService.readBudgetDetail(req.params.id);
+           return res.status(sc.OK).send(rb.successData(sc.OK, rm.BUDGET_DETAIL_READ_SUCCESS, result));         
+        } catch (e) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DETAIL_READ_FAIL));
+        }
+    },
     updateBudget: async(req, res) => {
         const { currency, price, priceTo, priceKrw, memo, category } = req.body;
         if(!currency || !price || !priceTo || !priceKrw || !memo || category === undefined) {

@@ -45,6 +45,20 @@ module.exports = {
             throw e;
         }
     },
+    readExpenseDetail: async (id) => {
+        try {
+            const result = await Expense.findOne({
+                where: {
+                    id: id
+                },
+                attributes: { exclude: ['priceKrw', 'PlanId', 'plan_id'] } //특정 속성 제외
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
     updateExpense: async (id, currency, price, priceTo, priceKrw, memo, category, payment) => {
         try {
             const result = await Expense.update({
