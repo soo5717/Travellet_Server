@@ -14,7 +14,7 @@ module.exports = {
                     FROM plans p 
                 ) AS j
             ON j.travel_id = t.id
-            WHERE t.user_id = :userId AND t.start_date ${comparison} :date
+            WHERE t.user_id = :userId AND t.end_date ${comparison} :date
             GROUP BY t.id`
     },
 
