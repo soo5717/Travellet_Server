@@ -1,16 +1,13 @@
 const { Budget } = require('../models');
-const { exchange } = require('../modules/exchange');
 
 module.exports = {
-    createBudget: async (planId, currency, price, memo, category) => {
+    createBudget: async (planId, currency, price, priceTo, priceKrw, memo, category) => {
         try {
-            //한국 통화로 변환
-            const priceKrw = await exchange(price, currency, 'KRW');
-
             await Budget.create({
                 plan_id: planId,
                 currency: currency,
                 price: price,
+                priceTo: priceTo,
                 priceKrw: priceKrw,
                 memo: memo,
                 category: category
@@ -47,14 +44,12 @@ module.exports = {
             throw e;
         }
     },
-    updateBudget: async (id, currency, price, memo, category) => {
+    updateBudget: async (id, currency, price, priceTo, priceKrw, memo, category) => {
         try {
-            //한국 통화로 변환
-            const priceKrw = await exchange(price, currency, 'KRW');
-
             const result = await Budget.update({
                 currency: currency,
                 price: price,
+                priceTo: priceTo,
                 priceKrw: priceKrw,
                 memo: memo,
                 category: category},
