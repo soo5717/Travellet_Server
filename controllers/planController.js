@@ -1,6 +1,7 @@
 const planService = require('../services/planService');
 const budgetService = require('../services/budgetService');
 const expenseService = require('../services/expenseService');
+const userService = require('../services/userService');
 const rb = require('../modules/responseBody');
 const rm = require('../modules/responseMessage');
 const sc = require('../modules/statusCode');
@@ -39,11 +40,13 @@ module.exports = {
         const { id } = req.params;
         try {
             const result = await planService.readPlanDetail(id);
+            const currency = await userService.readCurrency(req.decoded);
             const sumBudget = await budgetService.readBudgetSum(id);
             const sumExpense = await expenseService.readExpenseSum(id);
             const budget = await budgetService.readBudget(id);
             const expense = await expenseService.readExpense(id);
 
+            result.currency = currency;
             result.sum_budget = sumBudget;
             result.sum_expense = sumExpense;
             result.budget = budget;
