@@ -38,7 +38,7 @@ module.exports = {
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.TRAVEL_DELETE_SUCCESS));              
         } catch (e) {
-            console.error(error);
+            console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.TRAVEL_DELETE_FAIL));
         }
     }

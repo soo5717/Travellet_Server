@@ -1,7 +1,7 @@
 module.exports = {
     readTravel: (comparison) => {
         return `
-            SELECT t.*, ifnull(sum(j.sum_expense), 0) sum_budget, ifnull(sum(j.sum_expense), 0) sum_expense
+            SELECT t.*, ifnull(sum(j.sum_budget), 0) sum_budget, ifnull(sum(j.sum_expense), 0) sum_expense
             FROM travels t
             LEFT JOIN 
                 (	SELECT p.id, p.travel_id,

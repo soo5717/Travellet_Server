@@ -61,6 +61,11 @@ module.exports = {
     BUDGET_DELETE_SUCCESS: '예산 삭제 성공',
     BUDGET_DELETE_FAIL: '예산 삭제 실패',
 
+    BUDGET_DISTRIBUTION_READ_SUCCESS: '예산 분배 조회 성공',
+    BUDGET_DISTRIBUTION_READ_FAIL: '예산 분배 조회 실패',
+    BUDGET_DISTRIBUTION_UPDATE_SUCCESS: '예산 분배 성공',
+    BUDGET_DISTRIBUTION_UPDATE_FAIL: '예산 분배 실패',
+
     //지출(CRUD)
     EXPENSE_CREATE_SUCCESS: '지출 추가 성공',
     EXPENSE_CREATE_FAIL: '지출 추가 실패',
