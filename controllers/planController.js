@@ -15,7 +15,7 @@ module.exports = {
         }
 
         try {
-            await planService.createPlan(req.body);
+            await planService.createPlan(date, time, place, memo, category, transport, travel_id);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.PLAN_CREATE_SUCCESS));
                         
         } catch (error) {

@@ -4,10 +4,26 @@ const query = require('../modules/query');
 const { transportExp } = require('../modules/transportExpense');
 
 module.exports = {
-    createPlan: async (plan) => {
-        console.log(plan);
+    createPlan: async (date, time, place, memo, category, transport, travel_id) => {
+        console.log({
+            date: date,
+            time: time,
+            place: place,
+            memo: memo,
+            category : category,
+            transport: transport,
+            travelId: travel_id
+        });
         try {
-            await Plan.create(plan                  
+            await Plan.create({
+                date: date,
+                time: time,
+                place: place,
+                memo: memo,
+                category : category,
+                transport: transport,
+                travel_id: travel_id   
+            }         
             );            
         } catch (e) {
             throw e;
@@ -25,7 +41,7 @@ module.exports = {
             {
                 where: {
                     plan_id: planId,
-                    category: 6
+                    category: 5
                 }
             });
             return transport;
