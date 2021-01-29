@@ -88,7 +88,7 @@ module.exports = {
         try {
             const user = await User.findByPk(id);
             return  user.country.slice(-3); //문자열 자르기
-        } catch (error) {
+        } catch (e) {
             console.error(e);
             throw e;
         }
