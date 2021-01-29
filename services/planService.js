@@ -7,12 +7,8 @@ module.exports = {
     createPlan: async (plan) => {
         console.log(plan);
         try {
-            await Plan.create(plan, {
-                include: [
-                    {
-                        model: Budget
-                    }                    
-            ]});            
+            await Plan.create(plan                  
+            );            
         } catch (e) {
             throw e;
         }
