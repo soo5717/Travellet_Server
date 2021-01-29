@@ -56,5 +56,23 @@ module.exports = {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DELETE_FAIL));
         }
+    },
+    readBudgetDistribution: async (req, res) => {
+        try {
+            const result = await budgetService.readBudgetDistribution(req.query.travelid);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.BUDGET_DISTRIBUTION_READ_SUCCESS, result));              
+        } catch (e) {
+            console.error(e);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DISTRIBUTION_READ_FAIL));
+        }
+    },
+    updateBudgetDistribution: async (req, res) => {
+        try {
+            await budgetService.updateBudgetDistribution();
+            return res.status(sc.OK).send(rb.success(sc.OK, rm.BUDGET_DISTRIBUTION_UPDATE_SUCCESS));
+        } catch (e) {
+            console.error(e);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DISTRIBUTION_UPDATE_FAIL));
+        }
     }
 }

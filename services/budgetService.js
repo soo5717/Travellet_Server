@@ -1,4 +1,5 @@
-const { Budget } = require('../models');
+const { Op } = require("sequelize");
+const { Budget, Plan, Sequelize } = require('../models');
 
 module.exports = {
     createBudget: async (planId, currency, price, priceTo, priceKrw, memo, category) => {
@@ -86,6 +87,43 @@ module.exports = {
                 }
             });
             return result;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    readBudgetDistribution: async (travelId) => {
+        try {
+            const includeOption = {
+                model: Plan,
+                attributes: [ ],
+                where: {
+                    travel_id: travelId
+                }
+            };  
+            
+            const sumBudget = await Budget.sum('price_krw',{
+                include: [ includeOption ]
+            });
+            const result = await Budget.findAll({
+                include: [ includeOption ],
+                attributes: [ 'category', [Sequelize.fn('COUNT', 'category'), 'count' ]],
+                where: {
+                    price: {
+                        [Op.eq]: 0   
+                    }
+                },
+                group: ['category']
+            });
+            return { sum_budget: sumBudget, count_category: result };
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    updateBudgetDistribution: async () => {
+        try {
+            
         } catch (e) {
             console.error(e);
             throw e;

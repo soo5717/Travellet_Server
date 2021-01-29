@@ -3,6 +3,11 @@ var router = express.Router();
 const { checkToken } = require('../middleware/auth');
 const budgetController = require('../controllers/budgetController');
 
+// [GET] 예산 분배 조회
+router.get('/distribution', checkToken, budgetController.readBudgetDistribution);
+// [PATCH] 예산 분배
+router.patch('/distribution', checkToken, budgetController.updateBudgetDistribution);
+
 // [POST] 예산 추가
 router.post('/', checkToken, budgetController.createBudget);
 // [GET] 예산 내용 조회
