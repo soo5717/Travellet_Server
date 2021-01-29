@@ -60,9 +60,6 @@ module.exports = {
     },
     updateBudget: async (id, currency, price, priceTo, priceKrw, memo, category) => {
         try {
-            //한국 통화로 변환
-            const priceKrw = await exchange(price, currency, 'KRW');
-            
             const result = await Budget.update({
                 currency: currency,
                 price: price,
