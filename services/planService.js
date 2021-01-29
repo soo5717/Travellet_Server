@@ -16,8 +16,8 @@ module.exports = {
         } catch (e) {
             throw e;
         }
-    },
-
+    },    
+    
     calculateTransport: async(planId, sx, sy, ex, ey, pathType) => {
         try { 
             const transport = await transportExp(sx, sy, ex, ey, pathType);
