@@ -1,4 +1,5 @@
 const budgetService = require('../services/budgetService');
+const userService = require('../services/userService');
 const rb = require('../modules/responseBody');
 const rm = require('../modules/responseMessage');
 const sc = require('../modules/statusCode');
@@ -13,16 +14,18 @@ module.exports = {
             await budgetService.createBudget(planId, currency, price, priceTo, priceKrw, memo, category);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.BUDGET_CREATE_SUCCESS));         
         } catch (e) {
-            console.error(error);
+            console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_CREATE_FAIL));
         }
     },
     readBudgetDetail: async(req, res) => {
         try {
            const result = await budgetService.readBudgetDetail(req.params.id);
+           const exchangeRate = await userService.readExchangeRate(req.decoded, result.currency);
+           result.dataValues.exchangeRate = exchangeRate;
            return res.status(sc.OK).send(rb.successData(sc.OK, rm.BUDGET_DETAIL_READ_SUCCESS, result));         
         } catch (e) {
-            console.error(error);
+            console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DETAIL_READ_FAIL));
         }
     },
@@ -50,7 +53,7 @@ module.exports = {
             }
             return res.status(sc.OK).send(rb.success(sc.OK, rm.BUDGET_DELETE_SUCCESS));              
         } catch (e) {
-            console.error(error);
+            console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.BUDGET_DELETE_FAIL));
         }
     }
