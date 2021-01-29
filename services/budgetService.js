@@ -131,6 +131,7 @@ module.exports = {
             for(let i = 0; i < arr.length; i++) {
                 if(arr[i]) {
                     await Budget.update({
+                        currency: 'KRW',
                         price: arr[i],
                         priceTo: (arr[i]*rateTo).toFixed(2),
                         priceKrw: Math.round(arr[i]*rateKrw)
