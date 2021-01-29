@@ -67,8 +67,12 @@ module.exports = {
         }
     },
     updateBudgetDistribution: async (req, res) => {
+        const { travelId, lodging, food, shopping, tourism, transport, etc } = req.body;
+        if(!travelId) {
+            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+        }
         try {
-            await budgetService.updateBudgetDistribution();
+            await budgetService.updateBudgetDistribution(req.decoded, travelId, lodging, food, shopping, tourism, transport, etc);
             return res.status(sc.OK).send(rb.success(sc.OK, rm.BUDGET_DISTRIBUTION_UPDATE_SUCCESS));
         } catch (e) {
             console.error(e);

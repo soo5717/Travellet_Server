@@ -1,5 +1,7 @@
 const { Op } = require("sequelize");
 const { Budget, Plan, Sequelize } = require('../models');
+const { exchangeRate } = require('../modules/exchange');
+const userService = require('../services/userService');
 
 module.exports = {
     createBudget: async (planId, currency, price, priceTo, priceKrw, memo, category) => {
@@ -121,9 +123,37 @@ module.exports = {
             throw e;
         }
     },
-    updateBudgetDistribution: async () => {
+    updateBudgetDistribution: async (userId, travelId, lodging, food, shopping, tourism, transport, etc) => {
         try {
+            const { rateTo, rateKrw } = await userService.readExchangeRate(userId, 'KRW');
+            const arr = [ lodging, food, shopping, tourism, transport, etc ];
             
+            for(let i = 0; i < arr.length; i++) {
+                if(arr[i]) {
+                    await Budget.update({
+                        price: arr[i],
+                        priceTo: (arr[i]*rateTo).toFixed(2),
+                        priceKrw: Math.round(arr[i]*rateKrw)
+                    },
+                    {
+                        include: [{
+                            model: Plan,
+                            attributes: [ ],
+                            where: {
+                                travel_id: travelId
+                            }
+                        }],
+                        where: {
+                            price: {
+                                [Op.eq]: 0   
+                            },
+                            category: {
+                                [Op.eq]: i+1
+                            }
+                        }
+                    });
+                }
+            }
         } catch (e) {
             console.error(e);
             throw e;
