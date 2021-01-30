@@ -6,12 +6,12 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createExpense: async(req, res) => {
-        const { planId, currency, price, priceTo, priceKrw, memo, category, payment } = req.body;
-        if(!planId || !currency || !price || !priceTo || !priceKrw || !memo || category === undefined || payment === undefined) {
+        const { PlanId, currency, price, priceTo, priceKrw, memo, category, payment } = req.body;
+        if(!PlanId || !currency || !price || !priceTo || !priceKrw || !memo || category === undefined || payment === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            await expenseService.createExpense(planId, currency, price, priceTo, priceKrw, memo, category, payment);
+            await expenseService.createExpense(PlanId, currency, price, priceTo, priceKrw, memo, category, payment);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.EXPENSE_CREATE_SUCCESS));         
         } catch (e) {
             console.error(e);
@@ -22,8 +22,8 @@ module.exports = {
         try {
             const result = await expenseService.readExpenseDetail(req.params.id);
             const exchangeRate = await userService.readExchangeRate(req.decoded, result.currency);
-           result.dataValues.exchangeRate = exchangeRate;
-           return res.status(sc.OK).send(rb.successData(sc.OK, rm.EXPENSE_DETAIL_READ_SUCCESS, result));  
+            result.dataValues.exchangeRate = exchangeRate;
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.EXPENSE_DETAIL_READ_SUCCESS, result));  
         } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.EXPENSE_DETAIL_READ_FAIL));

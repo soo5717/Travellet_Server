@@ -1,30 +1,30 @@
 const { Expense } = require('../models');
 
 module.exports = {
-    createExpense: async (planId, currency, price, priceTo, priceKrw, memo, category, payment) => {
+    createExpense: async (PlanId, currency, price, priceTo, priceKrw, memo, category, payment) => {
         try {
             await Expense.create({
-                plan_id: planId,
-                currency: currency,
-                price: price,
-                priceTo: priceTo,
-                priceKrw: priceKrw,
-                memo: memo,
-                category: category,
-                payment: payment
+                PlanId,
+                currency,
+                price,
+                priceTo,
+                priceKrw,
+                memo,
+                category,
+                payment
             });
         } catch (e) {
             console.error(e);
             throw e;
         }
     },
-    readExpense: async (planId) => {
+    readExpense: async (PlanId) => {
         try {
             const result = await Expense.findAll({
                 where: {
-                    plan_id: planId
+                    PlanId
                 },
-                attributes: { exclude: ['PlanId', 'plan_id'] } //특정 속성 제외
+                attributes: { exclude: ['PlanId'] } //특정 속성 제외
             });
             return result;
         } catch (e) {
@@ -32,11 +32,11 @@ module.exports = {
             throw e;
         }
     },
-    readExpenseSum: async (planId) => {
+    readExpenseSum: async (PlanId) => {
         try {
-            const result = await Expense.sum('price_krw',{
+            const result = await Expense.sum('priceKrw',{
                 where: {
-                    plan_id: planId
+                    PlanId
                 } 
             });
             return result;
@@ -49,9 +49,9 @@ module.exports = {
         try {
             const result = await Expense.findOne({
                 where: {
-                    id: id
+                    id
                 },
-                attributes: { exclude: ['priceKrw', 'PlanId', 'plan_id'] } //특정 속성 제외
+                attributes: { exclude: ['priceKrw', 'PlanId'] } //특정 속성 제외
             });
             return result;
         } catch (e) {
@@ -62,16 +62,17 @@ module.exports = {
     updateExpense: async (id, currency, price, priceTo, priceKrw, memo, category, payment) => {
         try {
             const result = await Expense.update({
-                currency: currency,
-                price: price,
-                priceTo: priceTo,
-                priceKrw: priceKrw,
-                memo: memo,
-                category: category,
-                payment: payment},
+                currency,
+                price,
+                priceTo,
+                priceKrw,
+                memo,
+                category,
+                payment
+            },
             {
                 where: {
-                    id: id
+                    id
                 }
             });
             return result;
@@ -84,7 +85,7 @@ module.exports = {
         try {
             const result = await Expense.destroy({
                 where: {              
-                    id: id
+                    id
                 }
             });
             return result;
