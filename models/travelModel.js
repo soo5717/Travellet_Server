@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         budget: {
             type: DataTypes.DOUBLE,
-            allowNull: true
+            allowNull: false
         }
     }, {
         timestamps: false
