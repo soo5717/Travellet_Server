@@ -19,13 +19,17 @@ module.exports = {
                 return parseResult;
             } 
             //taxi
-            else{
+            else if(pathType === 4){
                 const options = {
                     uri: `https://apis.openapi.sk.com/tmap/routes?version=2&appKey=${API_KEY_2}&endX=${ex}&endY=${ey}&startX=${sx}&startY=${sy}`
                 };
                 const result = await request(options);
                 const parseResult = JSON.parse(result).features[0].properties.taxiFare;
                 return parseResult;
+            }
+            //walk, car
+            else{
+                return 0;
             }
             
         } catch (error) {
