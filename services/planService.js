@@ -26,13 +26,11 @@ module.exports = {
         try { 
             const transport = await transportExp(sx, sy, ex, ey, pathType);            
             const  currency = await userService.readCurrency(userId);
-            const  rateTo  = await userService.readExchangeRate(userId, 'KRW');
-            //교통비 환전은 어케함?
-            //const price = await exchange(transport, 'KRW', 'KRW');
+            const { rateTo, rateKrw } = await userService.readExchangeRate(userId, 'KRW');
 
             await Budget.update({
                 currency: currency,
-                price: transport,
+                price: (transport*rateTo).toFixed(2),
                 priceTo: rateTo,
                 priceKrw: transport,
                 memo: memo
