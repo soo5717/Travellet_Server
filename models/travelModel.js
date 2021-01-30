@@ -14,11 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         budget: {
             type: DataTypes.DOUBLE,
-            allowNull: true
+            allowNull: false
         }
     }, {
-        tableName: 'travels',
-        underscored: true,
         timestamps: false
     });
 };

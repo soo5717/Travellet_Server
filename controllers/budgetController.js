@@ -6,12 +6,12 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createBudget: async(req, res) => {
-        const { planId, currency, price, priceTo, priceKrw, memo, category } = req.body;
-        if(!planId || !currency || !price || !priceTo || !priceKrw || !memo || category === undefined) {
+        const { PlanId, currency, price, priceTo, priceKrw, memo, category } = req.body;
+        if(!PlanId || !currency || !price || !priceTo || !priceKrw || !memo || category === undefined) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            await budgetService.createBudget(planId, currency, price, priceTo, priceKrw, memo, category);
+            await budgetService.createBudget(PlanId, currency, price, priceTo, priceKrw, memo, category);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.BUDGET_CREATE_SUCCESS));         
         } catch (e) {
             console.error(e);
@@ -67,12 +67,12 @@ module.exports = {
         }
     },
     updateBudgetDistribution: async (req, res) => {
-        const { travelId, lodging, food, shopping, tourism, transport, etc } = req.body;
-        if(!travelId) {
+        const { TravelId, lodging, food, shopping, tourism, transport, etc } = req.body;
+        if(!TravelId) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            await budgetService.updateBudgetDistribution(req.decoded, travelId, lodging, food, shopping, tourism, transport, etc);
+            await budgetService.updateBudgetDistribution(req.decoded, TravelId, lodging, food, shopping, tourism, transport, etc);
             return res.status(sc.OK).send(rb.success(sc.OK, rm.BUDGET_DISTRIBUTION_UPDATE_SUCCESS));
         } catch (e) {
             console.error(e);

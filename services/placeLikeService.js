@@ -1,41 +1,42 @@
 const { Like } = require('../models');
 
 module.exports = {
-    createPlaceLike: async (userId, contentId) => {
+    createPlaceLike: async (UserId, contentId) => {
         try {
             await Like.create({
-                user_id: userId,
-                contentId: contentId
+                UserId,
+                contentId
             });
         } catch (error) {
+            console.error(error);
             throw error;
         }
     },
-
-    deletePlaceLike: async (userId, contentId) => {
-        try {
-            await Like.destroy({
-                where: {                    
-                    user_id: userId,
-                    contentId: contentId
-                }
-            });
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    readPlaceLike: async (userId) => {
+    readPlaceLike: async (UserId) => {
         try {
             const result = await Like.findAndCountAll({
                 where: {
-                    user_id: userId
+                    UserId
                 },
                 attributes: ['contentId']
             });
             return result;
         } catch(e) {
+            console.error(error);
             throw e;
+        }
+    },
+    deletePlaceLike: async (UserId, contentId) => {
+        try {
+            await Like.destroy({
+                where: {                    
+                    UserId,
+                    contentId
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            throw error;
         }
     }
 }

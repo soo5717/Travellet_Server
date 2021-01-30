@@ -31,8 +31,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE
         }
     }, {
-        tableName: 'plans',
-        underscored: true,
         timestamps: false
     });
 };

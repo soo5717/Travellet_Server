@@ -1,32 +1,31 @@
 const { Op } = require("sequelize");
 const { Budget, Plan, Sequelize } = require('../models');
-const { exchangeRate } = require('../modules/exchange');
 const userService = require('../services/userService');
 
 module.exports = {
-    createBudget: async (planId, currency, price, priceTo, priceKrw, memo, category) => {
+    createBudget: async (PlanId, currency, price, priceTo, priceKrw, memo, category) => {
         try {
             await Budget.create({
-                plan_id: planId,
-                currency: currency,
-                price: price,
-                priceTo: priceTo,
-                priceKrw: priceKrw,
-                memo: memo,
-                category: category
+                PlanId,
+                currency,
+                price,
+                priceTo,
+                priceKrw,
+                memo,
+                category
             });
         } catch (e) {
             console.error(e);
             throw e;
         }
     },    
-    readBudget: async (planId) => {
+    readBudget: async (PlanId) => {
         try {
             const result = await Budget.findAll({
                 where: {
-                    plan_id: planId
+                    PlanId
                 },
-                attributes: { exclude: ['PlanId', 'plan_id'] } //특정 속성 제외
+                attributes: { exclude: ['PlanId'] } //특정 속성 제외
             });
             return result;
         } catch (e) {
@@ -34,11 +33,11 @@ module.exports = {
             throw e;
         }
     },
-    readBudgetSum: async (planId) => {
+    readBudgetSum: async (PlanId) => {
         try {
-            const result = await Budget.sum('price_krw',{
+            const result = await Budget.sum('priceKrw',{
                where: {
-                   plan_id: planId
+                   PlanId
                 } 
             });
             return result;
@@ -51,9 +50,9 @@ module.exports = {
         try {
             const result = await Budget.findOne({
                 where: {
-                    id: id
+                    id
                 },
-                attributes: { exclude: ['priceKrw', 'payment', 'PlanId', 'plan_id'] } //특정 속성 제외
+                attributes: { exclude: ['priceKrw', 'payment', 'PlanId'] } //특정 속성 제외
             });
             return result;
         } catch (e) {
@@ -64,15 +63,16 @@ module.exports = {
     updateBudget: async (id, currency, price, priceTo, priceKrw, memo, category) => {
         try {
             const result = await Budget.update({
-                currency: currency,
-                price: price,
-                priceTo: priceTo,
-                priceKrw: priceKrw,
-                memo: memo,
-                category: category},
+                currency,
+                price,
+                priceTo,
+                priceKrw,
+                memo,
+                category
+            },
             {
                 where: {
-                    id: id
+                    id
                 }
             });
             return result;
@@ -85,7 +85,7 @@ module.exports = {
         try {
             const result = await Budget.destroy({
                 where: {              
-                    id: id
+                    id
                 }
             });
             return result;
@@ -94,20 +94,20 @@ module.exports = {
             throw e;
         }
     },
-    readBudgetDistribution: async (travelId) => {
+    readBudgetDistribution: async (TravelId) => {
         try {
             const includeOption = {
                 model: Plan,
                 attributes: [ ],
                 where: {
-                    travel_id: travelId
+                    TravelId
                 }
             };  
             
-            const sumBudget = await Budget.sum('price_krw',{
+            const sumBudget = await Budget.sum('priceKrw',{
                 include: [ includeOption ]
             });
-            const result = await Budget.findAll({
+            const countCategory = await Budget.findAll({
                 include: [ includeOption ],
                 attributes: [ 'category', [Sequelize.fn('COUNT', 'category'), 'count' ]],
                 where: {
@@ -117,15 +117,15 @@ module.exports = {
                 },
                 group: ['category']
             });
-            return { sum_budget: sumBudget, count_category: result };
+            return { sumBudget, countCategory };
         } catch (e) {
             console.error(e);
             throw e;
         }
     },
-    updateBudgetDistribution: async (userId, travelId, lodging, food, shopping, tourism, transport, etc) => {
+    updateBudgetDistribution: async (UserId, TravelId, lodging, food, shopping, tourism, transport, etc) => {
         try {
-            const { rateTo, rateKrw } = await userService.readExchangeRate(userId, 'KRW');
+            const { rateTo, rateKrw } = await userService.readExchangeRate(UserId, 'KRW');
             const arr = [ lodging, food, shopping, tourism, transport, etc ];
             
             for(let i = 0; i < arr.length; i++) {
@@ -141,7 +141,7 @@ module.exports = {
                             model: Plan,
                             attributes: [ ],
                             where: {
-                                travel_id: travelId
+                                TravelId
                             }
                         }],
                         where: {

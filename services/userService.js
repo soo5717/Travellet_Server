@@ -5,10 +5,10 @@ module.exports = {
     signUp: async (email, pwd, name, country) => {
         try{
             await User.create({
-                email: email,
-                pwd: pwd,
-                name: name,
-                country: country
+                email,
+                pwd,
+                name,
+                country
             });
         } catch (e) {
             console.error(e);
@@ -19,7 +19,7 @@ module.exports = {
         try{
             const result = await User.findOne({
                 where: {
-                    email: email
+                    email
                 }
             });
             return result;
@@ -32,7 +32,7 @@ module.exports = {
         try {
             const result = await User.findOne({
                 where: {
-                    id: id
+                    id
                 },
                 attributes: ['email', 'name', 'country']
             });
@@ -45,11 +45,11 @@ module.exports = {
     updateProfile: async (id, name) => {
         try {
             const result = await User.update({
-                name: name 
+                name
             },
             {
                 where: {
-                    id: id
+                    id
                 }
             });
             return result;
@@ -62,7 +62,7 @@ module.exports = {
         try {
             const result = await User.destroy({
                 where: {
-                    id: id
+                    id
                 }
             });
             return result;
