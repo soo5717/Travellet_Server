@@ -5,17 +5,17 @@ const { transportExp } = require('../modules/transportExpense');
 const userService = require('./userService');
 
 module.exports = {
-    createPlan: async (date, time, place, memo, x, y, category, transport, travel_id) => {
+    createPlan: async (date, time, place, memo, category, transport, x, y, travel_id) => {
         try {
             await Plan.create({
                 date: date,
                 time: time,
                 place: place,
                 memo: memo,
+                category : category,
+                transport: transport,                
                 x: x,
                 y: y,
-                category : category,
-                transport: transport,
                 travel_id: travel_id   
                 }         
             );            

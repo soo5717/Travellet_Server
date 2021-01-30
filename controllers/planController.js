@@ -8,14 +8,14 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createPlan: async (req, res) => {
-        const { date, time, place, memo, category, transport, travel_id } = req.body; 
+        const { date, time, place, memo, category, transport, x, y, travel_id } = req.body; 
         
         if(!date || !time || !place || !memo || !category || !transport || !travel_id){
            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
 
         try {
-            await planService.createPlan( date, time, place, memo, category, transport, travel_id);
+            await planService.createPlan( date, time, place, memo, category, transport, x, y, travel_id);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.PLAN_CREATE_SUCCESS));
                         
         } catch (error) {
