@@ -24,15 +24,14 @@ module.exports = {
     
     calculateTransport: async(userId, planId, sx, sy, ex, ey, pathType, memo) => {
         try { 
-            const transport = await transportExp(sx, sy, ex, ey, pathType);            
-            const  currency = await userService.readCurrency(userId);
+            const transport = await transportExp(sx, sy, ex, ey, pathType);  
             const { rateTo, rateKrw } = await userService.readExchangeRate(userId, 'KRW');
 
             await Budget.update({
-                currency: currency,
-                price: (transport*rateTo).toFixed(2),
-                priceTo: rateTo,
-                priceKrw: transport,
+                currency: 'KRW',
+                price: transport,
+                priceTo: (transport*rateTo).toFixed(2),
+                priceKrw: Math.round(transport*rateKrw),
                 memo: memo
             },
             {
