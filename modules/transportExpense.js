@@ -7,7 +7,7 @@ module.exports = {
         try {    
             //pathType -> (2=bus, 3=subway, 4=taxi)
             //bus or subway
-            if(sx == null || sy == null || ex == null || ey == null){
+            if(sx == 0 || sy == 0 || ex == 0 || ey == 0){
                 return 0;
             }
             else if(pathType === 2 || pathType === 3){                
