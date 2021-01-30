@@ -8,7 +8,7 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createPlan: async (req, res) => {
-        const { date, time, place, memo, category, transport, TravelId, Budgets } = req.body; 
+        const { date, time, place, memo, category, transport, x, y, TravelId, Budgets } = req.body; 
         if(!date || !time || !place || !memo || !category || !transport || !TravelId || !Budgets){
            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
@@ -75,7 +75,7 @@ module.exports = {
     },
     calculateTransport: async (req, res) => {        
         const { sx, sy, ex, ey, pathType, memo } = req.body;
-        if(!sx || !sy || !ex || !ey || !pathType || !memo )
+        if( !pathType || !memo )
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         try{            
             const result = await planService.calculateTransport(req.decoded, req.params.id, sx, sy, ex, ey, pathType, memo);
