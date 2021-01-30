@@ -17,8 +17,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         }
     }, {
-        tableName: 'users',
-        underscored: true,
         timestamps: false,
         indexes: [{unique: true, fields: ['email']}]
     });

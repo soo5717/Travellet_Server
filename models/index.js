@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'test';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
@@ -25,7 +25,6 @@ db.Like = require('./likeModel')(sequelize, Sequelize);
 db.User.hasMany(db.Travel);
 db.Travel.belongsTo(db.User, {
   foreignKey: {
-    name: 'user_id',
     allowNull: false
   },
   onDelete: 'CASCADE'
@@ -35,7 +34,6 @@ db.Travel.belongsTo(db.User, {
 db.Travel.hasMany(db.Plan);
 db.Plan.belongsTo(db.Travel, {
   foreignKey: {
-    name: 'travel_id',
     allowNull: false
   },
   onDelete: 'CASCADE'
@@ -45,7 +43,6 @@ db.Plan.belongsTo(db.Travel, {
 db.Plan.hasMany(db.Budget);
 db.Budget.belongsTo(db.Plan, {
   foreignKey: {
-    name: 'plan_id',
     allowNull: false
   },
   onDelete: 'CASCADE'
@@ -55,7 +52,6 @@ db.Budget.belongsTo(db.Plan, {
 db.Plan.hasMany(db.Expense);
 db.Expense.belongsTo(db.Plan, {
   foreignKey: {
-    name: 'plan_id',
     allowNull: false
   },
   onDelete: 'CASCADE'
@@ -65,7 +61,6 @@ db.Expense.belongsTo(db.Plan, {
 db.User.hasMany(db.Like);
 db.Like.belongsTo(db.User, {
   foreignKey: {
-    name: 'user_id',
     allowNull: false
   },
   onDelete: 'CASCADE'

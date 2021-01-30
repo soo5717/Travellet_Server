@@ -30,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false
         }
     }, {
-        tableName: 'budgets',
-        underscored: true,
         timestamps: false
     });
 };
