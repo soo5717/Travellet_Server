@@ -1,28 +1,28 @@
+const { QueryTypes } = require('sequelize');
 const { Travel, sequelize } = require('../models');
-const { Op, QueryTypes } = require('sequelize');
 const query = require('../modules/query');
 
 module.exports = {
-    createTravel: async (userId, title, startDate, endDate, budget) => {
+    createTravel: async (UserId, title, startDate, endDate, budget) => {
         try {
             await Travel.create({
-                user_id: userId,
-                title: title,
-                startDate: startDate,
-                endDate: endDate,
-                budget: budget
+                UserId,
+                title,
+                startDate,
+                endDate,
+                budget
             });
         } catch (e) {
             console.error(e);
             throw e;
         }
     },
-    readTravel: async (userId, date) => {
+    readTravel: async (UserId, endDate) => {
         try {
             const options = {
                 replacements: { 
-                    userId: userId,
-                    date: date
+                    UserId,
+                    endDate
                 },
                 type: QueryTypes.SELECT
             }
@@ -30,8 +30,8 @@ module.exports = {
             const past = await sequelize.query(query.readTravel('<'), options);
             
             const result = { 
-                upcoming: upcoming, 
-                past: past
+                upcoming, 
+                past
             };
             return result;
         } catch (e) {
@@ -43,7 +43,7 @@ module.exports = {
         try {
             const result = await Travel.destroy({
                 where: {              
-                    id: id
+                    id
                 }
             });
             return result;
