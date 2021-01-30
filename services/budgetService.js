@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Budget, Plan, Sequelize } = require('../models');
+const { Budget, Plan, Travel, Sequelize } = require('../models');
 const userService = require('../services/userService');
 
 module.exports = {
@@ -103,10 +103,12 @@ module.exports = {
                     TravelId
                 }
             };  
-            
-            const sumBudget = await Budget.sum('priceKrw',{
+            const { budget } = await Travel.findByPk(TravelId);
+            let sumBudget = await Budget.sum('priceKrw',{
                 include: [ includeOption ]
             });
+            sumBudget = !sumBudget ? 0 : sumBudget; //null 처리 
+
             const countCategory = await Budget.findAll({
                 include: [ includeOption ],
                 attributes: [ 'category', [Sequelize.fn('COUNT', 'category'), 'count' ]],
@@ -117,7 +119,7 @@ module.exports = {
                 },
                 group: ['category']
             });
-            return { sumBudget, countCategory };
+            return { budget, sumBudget, countCategory };
         } catch (e) {
             console.error(e);
             throw e;
