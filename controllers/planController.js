@@ -87,7 +87,7 @@ module.exports = {
 
     calculateTransport: async (req, res) => {        
         const { sx, sy, ex, ey, pathType } = req.body;
-        if(!sx || !sy || !ex || !ey || !pathType )
+        if(!pathType)
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         try{            
             const result = await planService.calculateTransport(req.decoded, req.params.id, sx, sy, ex, ey, pathType);
