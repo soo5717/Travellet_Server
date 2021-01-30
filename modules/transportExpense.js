@@ -1,7 +1,6 @@
 const request = require('request-promise-native');
 const API_KEY_1 = require('../config/transportExp').API_KEY1;
 const API_KEY_2 = require('../config/transportExp').API_KEY2;
-const budgetService = require('../services/budgetService');
 
 module.exports = {
     transportExp: async(sx, sy, ex, ey, pathType) => {       
@@ -15,7 +14,7 @@ module.exports = {
                 if(pathType === 3)
                     pathType = 1;
                 const options = {
-                    uri: `https://api.odsay.com/v1/api/searchPubTransPath?SX=${sx}&SY=${sy}&EX=${ex}&EY=${ey}&SearchPathType=${pathType}&apiKey=${API_KEY_1}`
+                    uri: `https://api.odsay.com/v1/api/searchPubTransPath?SX=${sx}&SY=${sy}&EX=${ex}&EY=${ey}&SearchPathType=${pathType}&apiKey=S6LXq53cobz1IDLXVy7i/ew6QUkR1zT9Z/5J3rI4Av8`
                 }; 
                 const result = await request(options);
                 console.log(result);
