@@ -27,6 +27,7 @@ module.exports = {
                     uri: `https://apis.openapi.sk.com/tmap/routes?version=2&appKey=${API_KEY_2}&endX=${ex}&endY=${ey}&startX=${sx}&startY=${sy}`
                 };
                 const result = await request(options);
+                console.log(result);
                 const parseResult = JSON.parse(result).features[0].properties.taxiFare;
                 return parseResult;
             }
