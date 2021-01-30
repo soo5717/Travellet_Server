@@ -8,34 +8,18 @@ const sc = require('../modules/statusCode');
 
 module.exports = {
     createPlan: async (req, res) => {
-        const { date, time, place, memo, category, transport, travel_id } = req.body; 
-        
-        if(!date || !time || !place || !memo || !category || !transport || !travel_id){
+        const { date, time, place, memo, category, transport, TravelId, Budgets } = req.body; 
+        if(!date || !time || !place || !memo || !category || !transport || !TravelId || !Budgets){
            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
-
         try {
-            await planService.createPlan( date, time, place, memo, category, transport, travel_id);
-            return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.PLAN_CREATE_SUCCESS));
-                        
+            await planService.createPlan(req.body);
+            return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.PLAN_CREATE_SUCCESS));      
         } catch (error) {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_CREATE_FAIL));
         }
-    },
-
-    readPlan: async (req, res) => {
-        try {
-            //console.log(req.query.travelid);
-            const result = await planService.readPlan(req.query.travelid);
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_READ_SUCCESS, result));
-        
-        } catch (error) {
-            console.error(error);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_READ_FAIL));
-        }
-    },
-    
+    },    
     readPlanDetail: async (req, res) => {
         const { id } = req.params;
         try {
@@ -47,8 +31,8 @@ module.exports = {
             const expense = await expenseService.readExpense(id);
 
             result.currency = currency;
-            result.sum_budget = sumBudget;
-            result.sum_expense = sumExpense;
+            result.sumBudget = sumBudget;
+            result.sumExpense = sumExpense;
             result.budget = budget;
             result.expense = expense;
             
@@ -58,44 +42,47 @@ module.exports = {
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_DETAIL_READ_FAIL));
         }
     },
-
+    readPlan: async (req, res) => {
+        try {
+            const result = await planService.readPlan(req.query.travelid);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_READ_SUCCESS, result));
+        } catch (error) {
+            console.error(error);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_READ_FAIL));
+        }
+    },
     updatePlan: async (req, res) => {
         const { date, time, place, memo, category, transport, x, y } = req.body;
         if(!date || !time || !place || !memo || !category || !transport ){
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
-         }
- 
+        }
         try {
-            const result = await planService.updatePlan(date, time, place, memo, category, transport, x, y, req.params.id);
-            return res.status(sc.OK).send(rb.success(sc.OK, rm.PLAN_UPDATE_SUCCESS));
-            
+            await planService.updatePlan(date, time, place, memo, category, transport, x, y, req.params.id);
+            return res.status(sc.OK).send(rb.success(sc.OK, rm.PLAN_UPDATE_SUCCESS));   
         } catch (error) {
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_UPDATE_FAIL));
         }
     },
-
     deletePlan: async (req, res) => {
         try{
-            const result = await planService.deletePlan(req.params.id);
-            return res.status(sc.NO_CONTENT).send(rb.successData(sc.NO_CONTENT, rm.PLAN_DELETE_SUCCESS, result));
+            await planService.deletePlan(req.params.id);
+            return res.status(sc.NO_CONTENT).send(rb.success(sc.NO_CONTENT, rm.PLAN_DELETE_SUCCESS));
         } catch(error) {
             console.error(error);
             return res.statussc(INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_DELETE_FAIL));
         }
     },
-
     calculateTransport: async (req, res) => {        
-        const { sx, sy, ex, ey, pathType } = req.body;
-        if(!sx || !sy || !ex || !ey || !pathType )
+        const { sx, sy, ex, ey, pathType, memo } = req.body;
+        if(!sx || !sy || !ex || !ey || !pathType || !memo )
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         try{            
-            const result = await planService.calculateTransport(req.decoded, req.params.id, sx, sy, ex, ey, pathType);
+            const result = await planService.calculateTransport(req.decoded, req.params.id, sx, sy, ex, ey, pathType, memo);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_READ_SUCCESS, result)); 
         } catch(e){
             console.error(error);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.PLAN_READ_FAIL));
         }
     }
-   
 }
