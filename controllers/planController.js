@@ -15,7 +15,7 @@ module.exports = {
         }
 
         try {
-            await planService.createPlan(date, time, place, memo, category, transport, travel_id);
+            await planService.createPlan( date, time, place, memo, category, transport, travel_id);
             return res.status(sc.CREATED).send(rb.success(sc.CREATED, rm.PLAN_CREATE_SUCCESS));
                         
         } catch (error) {
@@ -90,7 +90,7 @@ module.exports = {
         if(!sx || !sy || !ex || !ey || !pathType )
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         try{            
-            const result = await planService.calculateTransport(req.params.id, sx, sy, ex, ey, pathType);
+            const result = await planService.calculateTransport(req.decoded, req.params.id, sx, sy, ex, ey, pathType);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.PLAN_READ_SUCCESS, result)); 
         } catch(e){
             console.error(error);

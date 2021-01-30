@@ -2,6 +2,7 @@ const { Plan, Travel, Budget, sequelize } = require('../models');
 const { QueryTypes } = require('sequelize');
 const query = require('../modules/query');
 const { transportExp } = require('../modules/transportExpense');
+const userService = require('./userService');
 
 module.exports = {
     createPlan: async (date, time, place, memo, category, transport, travel_id) => {
@@ -14,23 +15,25 @@ module.exports = {
                 category : category,
                 transport: transport,
                 travel_id: travel_id   
-            }         
+                }         
             );            
         } catch (e) {
             throw e;
         }
     },    
     
-    calculateTransport: async(planId, sx, sy, ex, ey, pathType, currency, memo) => {
+    calculateTransport: async(userId, planId, sx, sy, ex, ey, pathType, memo) => {
         try { 
-            const transport = await transportExp(sx, sy, ex, ey, pathType);
+            const transport = await transportExp(sx, sy, ex, ey, pathType);            
+            const  currency = await userService.readCurrency(userId);
+            const  rateTo  = await userService.readExchangeRate(userId, 'KRW');
             //교통비 환전은 어케함?
             //const price = await exchange(transport, 'KRW', 'KRW');
 
             await Budget.update({
                 currency: currency,
                 price: transport,
-                priceTo: priceTo,
+                priceTo: rateTo,
                 priceKrw: transport,
                 memo: memo
             },
