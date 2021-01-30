@@ -25,10 +25,13 @@ module.exports = {
         try {
             const result = await planService.readPlanDetail(id);
             const currency = await userService.readCurrency(req.decoded);
-            const sumBudget = await budgetService.readBudgetSum(id);
-            const sumExpense = await expenseService.readExpenseSum(id);
+            let sumBudget = await budgetService.readBudgetSum(id);
+            let sumExpense = await expenseService.readExpenseSum(id);
             const budget = await budgetService.readBudget(id);
             const expense = await expenseService.readExpense(id);
+
+            sumBudget = !sumBudget ? 0 : sumBudget;
+            sumExpense = !sumExpense ? 0 : sumExpense;
 
             result.currency = currency;
             result.sumBudget = sumBudget;
