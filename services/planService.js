@@ -5,15 +5,6 @@ const { transportExp } = require('../modules/transportExpense');
 
 module.exports = {
     createPlan: async (date, time, place, memo, category, transport, travel_id) => {
-        console.log({
-            date: date,
-            time: time,
-            place: place,
-            memo: memo,
-            category : category,
-            transport: transport,
-            travelId: travel_id
-        });
         try {
             await Plan.create({
                 date: date,
@@ -30,14 +21,19 @@ module.exports = {
         }
     },    
     
-    calculateTransport: async(planId, sx, sy, ex, ey, pathType) => {
+    calculateTransport: async(planId, sx, sy, ex, ey, pathType, currency, memo) => {
         try { 
             const transport = await transportExp(sx, sy, ex, ey, pathType);
             //교통비 환전은 어케함?
             //const price = await exchange(transport, 'KRW', 'KRW');
+
             await Budget.update({
+                currency: currency,
                 price: transport,
-                priceKrw: transport,},
+                priceTo: priceTo,
+                priceKrw: transport,
+                memo: memo
+            },
             {
                 where: {
                     plan_id: planId,
