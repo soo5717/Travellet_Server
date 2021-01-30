@@ -41,7 +41,6 @@ module.exports = {
     readProfile: async (req, res) => {
         try {
             const result = await userService.readProfile(req.decoded);
-            console.log(result);
             if(!result) { //탈퇴 했을 경우
                 return res.status(sc.NO_CONTENT).send();
             }
