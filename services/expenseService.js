@@ -93,5 +93,21 @@ module.exports = {
             console.error(e);
             throw e;
         }
+    },
+    readDaily: async(TravelId) => {
+        try {
+            
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    },
+    readCategory: async(TravelId) => {
+        try {
+            
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
     }
 }

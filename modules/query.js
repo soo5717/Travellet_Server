@@ -15,7 +15,8 @@ module.exports = {
                 ) AS j
             ON j.TravelId = t.id
             WHERE t.UserId = :UserId AND t.endDate ${comparison} :endDate
-            GROUP BY t.id`
+            GROUP BY t.id
+            ORDER BY t.startDate`
     },
 
     readPlan: () => {

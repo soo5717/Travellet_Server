@@ -84,5 +84,9 @@ module.exports = {
     PLACE_LIKE_READ_SUCCESS: '장소 좋아요 목록 조회 성공',
     PLACE_LIKE_READ_FAIL: '장소 좋아요 목록 조회 실패',
     PLACE_LIKE_DELETE_SUCCESS: '장소 좋아요 삭제 성공',
-    PLACE_LIKE_DELETE_FAIL: '장소 좋아요 삭제 실패'
+    PLACE_LIKE_DELETE_FAIL: '장소 좋아요 삭제 실패',
+
+    //레포트(R)
+    REPORT_READ_SUCCESS: '그래프 조회 성공',
+    REPORT_READ_FAIL: '그래프 조회 실패'
 }
