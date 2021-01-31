@@ -139,8 +139,7 @@ module.exports = {
         }
     },
     readCategory: async(TravelId) => {
-        try {
-            
+        try {            
             const includeOption = {
                 model: Plan,
                 attributes: [ ],
@@ -148,15 +147,24 @@ module.exports = {
                     TravelId
                 }
             };
-
-            const result = await Expense.findAll({
+            const categoryGraph = await Expense.findAll({
                 include: [ includeOption ],
-                attributes: [ 'category', 'priceKrw', 'priceTo', 'memo', 'payment' ],
+                attributes: [ 'category', [Sequelize.fn('SUM', Sequelize.col('priceTo')), 'priceTo' ], [Sequelize.fn('SUM', Sequelize.col('priceKrw')), 'priceKrw' ]],
                 group: ['category']
             });
             
-            console.log(result);
-            return result;
+            let categoryList = [];
+            for(let i=1; i<7; i++){
+                categoryList.push(await Expense.findAll({
+                    include: [ includeOption ],
+                    where: {
+                        category:i
+                    },
+                    attributes: [ 'category', 'priceTo', 'priceKrw', 'memo', 'payment']
+                }))
+            }           
+
+            return { categoryGraph, categoryList };
         } catch (e) {
             console.error(e);
             throw e;
