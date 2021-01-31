@@ -57,23 +57,30 @@ module.exports = {
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.EXPENSE_DELETE_FAIL));
         }
     },
-    readReport: async (req, res) => {
-        const type  = req.params.type;
+    readDaily: async (req, res) => {
         const { travelid } = req.query;
         if(!travelid) {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            if(type === 'daily') {
-                const result1 = await expenseService.readDaily(travelid);
-                return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result1));  
-            } else if(type === 'category') {
-                const result2 = await expenseService.readCategory(travelid);
-                return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result2));    
-            }                         
+            const result = await expenseService.readDaily(travelid);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result));  
         } catch (e) {
             console.error(e);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.REPORT_READ_FAIL));
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.REPORT_READ_FAIL)); 
+        }
+    },
+    readCategory: async (req, res) => {
+        const { travelid } = req.query;
+        if(!travelid) {
+            return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+        }
+        try {
+            const result = await expenseService.readCategory(travelid);
+            return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result));  
+        } catch (e) {
+            console.error(e);
+            return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.REPORT_READ_FAIL)); 
         }
     }
 }
