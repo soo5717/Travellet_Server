@@ -64,13 +64,13 @@ module.exports = {
             return res.status(sc.BAD_REQUEST).send(rb.fail(sc.BAD_REQUEST, rm.NULL_VALUE));
         }
         try {
-            let result; 
             if(type === 'daily') {
-                result = await expenseService.readDaily(travelid);
+                const result1 = await expenseService.readDaily(travelid);
+                return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result1));  
             } else if(type === 'category') {
-                reuslt = await expenseService.readCategory(travelid);
-            }           
-            return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result));              
+                const result2 = await expenseService.readCategory(travelid);
+                return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result2));    
+            }                         
         } catch (e) {
             console.error(e);
             return res.status(sc.INTERNAL_SERVER_ERROR).send(rb.fail(sc.INTERNAL_SERVER_ERROR, rm.REPORT_READ_FAIL));

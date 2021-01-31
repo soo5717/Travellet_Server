@@ -1,4 +1,5 @@
-const { Expense } = require('../models');
+const { Expense, Plan } = require('../models');
+
 
 module.exports = {
     createExpense: async (PlanId, currency, price, priceTo, priceKrw, memo, category, payment) => {
@@ -96,7 +97,7 @@ module.exports = {
     },
     readDaily: async(TravelId) => {
         try {
-            
+
         } catch (e) {
             console.error(e);
             throw e;
@@ -105,6 +106,22 @@ module.exports = {
     readCategory: async(TravelId) => {
         try {
             
+            const includeOption = {
+                model: Plan,
+                attributes: [ ],
+                where:{
+                    TravelId
+                }
+            };
+
+            const result = await Expense.findAll({
+                include: [ includeOption ],
+                attributes: [ 'category', 'priceKrw', 'priceTo', 'memo', 'payment' ],
+                group: ['category']
+            });
+            
+            console.log(result);
+            return result;
         } catch (e) {
             console.error(e);
             throw e;

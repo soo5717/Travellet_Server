@@ -9,7 +9,7 @@ module.exports = {
         try {
             await Plan.create(plan, {
                 include: [{
-                    model: Budget
+                    model: Budget, 
                 }]
             });
         } catch (e) {
