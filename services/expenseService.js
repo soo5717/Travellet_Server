@@ -1,4 +1,4 @@
-const { Expense } = require('../models');
+const { Expense, Plan, Sequelize } = require('../models');
 
 module.exports = {
     createExpense: async (PlanId, currency, price, priceTo, priceKrw, memo, category, payment) => {
@@ -96,7 +96,42 @@ module.exports = {
     },
     readDaily: async(TravelId) => {
         try {
+            const chart = await Expense.findAll({
+                include: [{
+                    model: Plan,
+                    attributes: [],
+                    where: {
+                        TravelId
+                    }
+                }],
+                attributes: ['Plan.date', 'payment', [Sequelize.fn('SUM', Sequelize.col('priceTo')), 'priceTo' ], [Sequelize.fn('SUM', Sequelize.col('priceKrw')), 'priceKrw' ]],
+                group: ['Plan.date','payment'],
+                raw: true
+            });
+
+            let dateArr = [];
+            for(let i = 0; i< chart.length; i++) {
+                dateArr.push(chart[i].date);
+            }
+            const dateSet = new Set(dateArr); //배열 중복 제거
+            dateArr = [...dateSet]; //배열 중복 제거
             
+            let itemArr = [];
+            for(let i = 0; i < dateArr.length; i++) {
+                itemArr.push(await Expense.findAll({
+                    include: [{
+                        model: Plan,
+                        attributes: [],
+                        where: {
+                            TravelId,
+                            date: dateArr[i]
+                        }
+                    }],
+                    attributes: ['Plan.date', 'memo', 'category', 'payment', 'priceTo', 'priceKrw'],
+                    raw: true
+                }));
+            }
+            return { chart, date: dateArr, item: itemArr };
         } catch (e) {
             console.error(e);
             throw e;
