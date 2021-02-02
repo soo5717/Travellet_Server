@@ -160,7 +160,8 @@ module.exports = {
                     where: {
                         category:i
                     },
-                    attributes: [ 'category', 'priceTo', 'priceKrw', 'memo', 'payment']
+                    attributes: ['Plan.date', 'category', 'priceTo', 'priceKrw', 'memo', 'payment'],
+                    raw: true
                 }))
             }           
 
