@@ -1,5 +1,6 @@
 
 const { Expense, Plan, Sequelize } = require('../models');
+const userService = require('./userService');
 
 module.exports = {
     createExpense: async (PlanId, currency, price, priceTo, priceKrw, memo, category, payment) => {
@@ -138,8 +139,9 @@ module.exports = {
             throw e;
         }
     },
-    readCategory: async(TravelId) => {
+    readCategory: async(UserId, TravelId) => {
         try {            
+            const currency = await userService.readCurrency(UserId);
             const includeOption = {
                 model: Plan,
                 attributes: [ ],
@@ -170,7 +172,7 @@ module.exports = {
                 }))
             }           
 
-            return { categoryGraph, categoryList };
+            return { currency, categoryGraph, categoryList };
         } catch (e) {
             console.error(e);
             throw e;
