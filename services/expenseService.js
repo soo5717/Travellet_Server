@@ -153,19 +153,24 @@ module.exports = {
                 group: ['category']
             });
             
+            let categoryNum = [];
+            for(let i=0; i<categoryGraph.length; i++){
+                categoryNum.push(categoryGraph[i].category);
+            }
+
             let categoryList = [];
-            for(let i=1; i<7; i++){
+            for(let i=0; i<categoryNum.length; i++){
                 categoryList.push(await Expense.findAll({
                     include: [ includeOption ],
                     where: {
-                        category:i
+                        category:categoryNum[i]
                     },
                     attributes: ['Plan.date', 'category', 'priceTo', 'priceKrw', 'memo', 'payment'],
                     raw: true
                 }))
             }           
 
-            return { categoryGraph, categoryList };
+            return { categoryGraph };
         } catch (e) {
             console.error(e);
             throw e;
