@@ -77,6 +77,7 @@ module.exports = {
         }
         try {
             const result = await expenseService.readCategory(travelid);
+            console.log(result);
             return res.status(sc.OK).send(rb.successData(sc.OK, rm.REPORT_READ_SUCCESS, result));  
         } catch (e) {
             console.error(e);
