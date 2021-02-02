@@ -170,7 +170,7 @@ module.exports = {
                 }))
             }           
 
-            return { categoryGraph };
+            return { categoryGraph, categoryList };
         } catch (e) {
             console.error(e);
             throw e;
